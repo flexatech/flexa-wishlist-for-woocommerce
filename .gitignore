@@ -28,3 +28,6 @@ Thumbs.db
 # NOTE: assets/dist/ (the built admin bundle) IS committed so a fresh
 # checkout runs in WordPress without a build step. If you move to a
 # CI-built release flow, add "/assets/dist/" here.
+
+# Release build output
+/build/

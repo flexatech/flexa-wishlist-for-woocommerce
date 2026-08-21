@@ -42,3 +42,7 @@ docs
 Thumbs.db
 .idea
 .vscode
+
+# Release script & its output (not part of the plugin)
+release.sh
+build
