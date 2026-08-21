@@ -1,0 +1,410 @@
+# Copyright (C) 2026 FlexaTech
+# This file is distributed under the GPL v2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Flexa Wishlist for WooCommerce 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/flexa-woocommerce-wishlist\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-08-21T06:56:54+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.10.0\n"
+"X-Domain: flexa-woocommerce-wishlist\n"
+
+#. Plugin Name of the plugin
+#: flexa-woocommerce-wishlist.php
+msgid "Flexa Wishlist for WooCommerce"
+msgstr ""
+
+#. Description of the plugin
+#: flexa-woocommerce-wishlist.php
+msgid "A mobile-first, cache-safe wishlist for WooCommerce: one-tap save, guest persistence, silent account merge, a beautiful wishlist page, and effortless sharing."
+msgstr ""
+
+#. Author of the plugin
+#: flexa-woocommerce-wishlist.php
+msgid "FlexaTech"
+msgstr ""
+
+#: flexa-woocommerce-wishlist.php:29
+msgid "Flexa Wishlist requires PHP 8.2 or higher. The plugin has been disabled."
+msgstr ""
+
+#: flexa-woocommerce-wishlist.php:87
+msgid "Flexa Wishlist requires WooCommerce to be installed and active."
+msgstr ""
+
+#: src/Admin/AdminMenu.php:29
+msgid "Settings"
+msgstr ""
+
+#: src/Admin/AdminMenu.php:37
+#: views/admin-app.php:13
+msgid "Flexa Wishlist"
+msgstr ""
+
+#: src/Admin/AdminMenu.php:38
+#: src/Install/Activator.php:45
+#: src/Integration/Blocks.php:48
+#: src/Integration/Elementor/bootstrap.php:22
+#: src/Integration/Elementor/PageWidget.php:23
+#: src/Integration/Elementor/PageWidget.php:47
+#: assets/blocks/editor.js:39
+msgid "Wishlist"
+msgstr ""
+
+#: src/Domain/Product/ProductHydrator.php:41
+msgid "This product is no longer available"
+msgstr ""
+
+#: src/Domain/Wishlist/WishlistRepository.php:113
+#: src/Domain/Wishlist/WishlistRepository.php:133
+#: src/Support/Settings.php:46
+msgid "Favorites"
+msgstr ""
+
+#: src/Frontend/Assets.php:115
+#: src/Rest/ItemsController.php:126
+#: src/Rest/ItemsController.php:177
+msgid "Saved to your wishlist."
+msgstr ""
+
+#: src/Frontend/Assets.php:116
+#: src/Rest/ItemsController.php:211
+msgid "Removed from your wishlist."
+msgstr ""
+
+#: src/Frontend/Assets.php:117
+msgid "Undo"
+msgstr ""
+
+#: src/Frontend/Assets.php:118
+msgid "Retry"
+msgstr ""
+
+#: src/Frontend/Assets.php:119
+msgid "Something went wrong. Please try again."
+msgstr ""
+
+#: src/Frontend/Assets.php:120
+#: src/Frontend/CounterRenderer.php:24
+msgid "View wishlist"
+msgstr ""
+
+#: src/Frontend/Assets.php:121
+msgid "Add to cart"
+msgstr ""
+
+#: src/Frontend/Assets.php:122
+msgid "Select options"
+msgstr ""
+
+#: src/Frontend/Assets.php:123
+msgid "Remove"
+msgstr ""
+
+#: src/Frontend/Assets.php:124
+msgid "Out of stock"
+msgstr ""
+
+#: src/Frontend/Assets.php:125
+#: src/Rest/CartController.php:98
+msgid "Added to cart."
+msgstr ""
+
+#: src/Frontend/Assets.php:126
+msgid "View cart"
+msgstr ""
+
+#: src/Frontend/Assets.php:127
+#: src/Frontend/PageRenderer.php:50
+msgid "Add all to cart"
+msgstr ""
+
+#: src/Frontend/Assets.php:128
+msgid "Adding…"
+msgstr ""
+
+#: src/Frontend/Assets.php:129
+msgid "Some items could not be added."
+msgstr ""
+
+#: src/Frontend/PageRenderer.php:33
+msgid "Loading your wishlist…"
+msgstr ""
+
+#: src/Frontend/PageRenderer.php:41
+msgid "Your wishlist is empty"
+msgstr ""
+
+#: src/Frontend/PageRenderer.php:42
+msgid "Save items you love by tapping the heart. They’ll show up here."
+msgstr ""
+
+#: src/Frontend/PageRenderer.php:43
+msgid "Start shopping"
+msgstr ""
+
+#: src/Frontend/PageRenderer.php:58
+msgid "Load more"
+msgstr ""
+
+#: src/Frontend/PageRenderer.php:62
+msgid "Your wishlist requires JavaScript to display."
+msgstr ""
+
+#: src/Frontend/ShareView.php:54
+msgid "This wishlist has no items yet."
+msgstr ""
+
+#: src/Frontend/ShareView.php:58
+msgid "Save all to my wishlist"
+msgstr ""
+
+#: src/Frontend/ShareView.php:84
+msgid "This wishlist isn't available"
+msgstr ""
+
+#: src/Frontend/ShareView.php:85
+msgid "The link may have been changed or the list made private."
+msgstr ""
+
+#: src/Frontend/ShareView.php:86
+msgid "Continue shopping"
+msgstr ""
+
+#. translators: 1: owner name, 2: store name.
+#: src/Frontend/ShareView.php:99
+msgid "%1$s at %2$s"
+msgstr ""
+
+#: src/Frontend/ShareView.php:152
+#: src/Frontend/ShareView.php:157
+msgid "A customer's wishlist"
+msgstr ""
+
+#. translators: %s: customer display name.
+#: src/Frontend/ShareView.php:160
+msgid "%s's wishlist"
+msgstr ""
+
+#: src/Integration/Blocks.php:49
+#: assets/blocks/editor.js:40
+msgid "The full wishlist page."
+msgstr ""
+
+#: src/Integration/Blocks.php:70
+#: src/Integration/Elementor/ButtonWidget.php:24
+#: assets/blocks/editor.js:80
+#: assets/blocks/editor.js:109
+msgid "Wishlist Button"
+msgstr ""
+
+#: src/Integration/Blocks.php:71
+#: assets/blocks/editor.js:81
+msgid "A save-to-wishlist toggle for a product."
+msgstr ""
+
+#: src/Integration/Blocks.php:89
+#: src/Integration/Elementor/CounterWidget.php:23
+#: assets/blocks/editor.js:124
+msgid "Wishlist Counter"
+msgstr ""
+
+#: src/Integration/Blocks.php:90
+#: assets/blocks/editor.js:125
+msgid "A link to the wishlist with a saved-count badge."
+msgstr ""
+
+#: src/Integration/Elementor/ButtonWidget.php:48
+msgid "Button"
+msgstr ""
+
+#: src/Integration/Elementor/ButtonWidget.php:54
+#: assets/blocks/editor.js:98
+msgid "Product ID"
+msgstr ""
+
+#: src/Integration/Elementor/ButtonWidget.php:58
+#: assets/blocks/editor.js:99
+msgid "Leave 0 to use the current product."
+msgstr ""
+
+#: src/Integration/Elementor/PageWidget.php:53
+#: assets/blocks/editor.js:54
+#: assets/blocks/editor.js:56
+msgid "Layout"
+msgstr ""
+
+#: src/Integration/Elementor/PageWidget.php:57
+#: assets/blocks/editor.js:59
+msgid "Site default"
+msgstr ""
+
+#: src/Integration/Elementor/PageWidget.php:58
+#: assets/blocks/editor.js:60
+msgid "Grid"
+msgstr ""
+
+#: src/Integration/Elementor/PageWidget.php:59
+#: src/Integration/Privacy.php:75
+#: assets/blocks/editor.js:61
+msgid "List"
+msgstr ""
+
+#: src/Integration/Privacy.php:35
+#: src/Integration/Privacy.php:47
+#: src/Integration/Privacy.php:71
+msgid "Wishlists"
+msgstr ""
+
+#: src/Integration/Privacy.php:79
+#: assets/blocks/editor.js:95
+msgid "Product"
+msgstr ""
+
+#: src/Integration/Privacy.php:83
+msgid "Saved on"
+msgstr ""
+
+#: src/Rest/BaseRestController.php:60
+msgid "Your session expired. Please refresh and try again."
+msgstr ""
+
+#: src/Rest/BaseRestController.php:70
+msgid "You do not have permission to view this."
+msgstr ""
+
+#: src/Rest/BaseRestController.php:78
+msgid "You do not have permission to change settings."
+msgstr ""
+
+#: src/Rest/CartController.php:72
+#: src/Rest/ItemsController.php:188
+#: src/Rest/ItemsController.php:255
+msgid "Item not found."
+msgstr ""
+
+#: src/Rest/CartController.php:111
+#: src/Rest/ListsController.php:84
+#: src/Rest/ListsController.php:143
+#: src/Rest/ListsController.php:173
+#: src/Rest/ShareController.php:68
+msgid "Wishlist not found."
+msgstr ""
+
+#: src/Rest/CartController.php:126
+msgid "Your wishlist is empty."
+msgstr ""
+
+#. translators: %d: number of products added to the cart.
+#: src/Rest/CartController.php:161
+msgid "Added %d item to your cart."
+msgid_plural "Added %d items to your cart."
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Rest/CartController.php:163
+msgid "No items could be added to the cart."
+msgstr ""
+
+#: src/Rest/CartController.php:184
+msgid "This item is out of stock."
+msgstr ""
+
+#: src/Rest/CartController.php:186
+msgid "Choose the options for this item on its product page first."
+msgstr ""
+
+#: src/Rest/CartController.php:188
+msgid "This item is no longer available."
+msgstr ""
+
+#: src/Rest/CartController.php:190
+msgid "This item could not be added to the cart."
+msgstr ""
+
+#: src/Rest/ItemsController.php:118
+#: src/Rest/ItemsController.php:167
+msgid "That product could not be saved."
+msgstr ""
+
+#: src/Rest/ItemsController.php:227
+msgid "Could not restore the item."
+msgstr ""
+
+#: src/Rest/ListsController.php:116
+msgid "Please give the list a name."
+msgstr ""
+
+#: src/Rest/ListsController.php:131
+msgid "List created."
+msgstr ""
+
+#: src/Rest/ListsController.php:176
+msgid "The default list cannot be deleted."
+msgstr ""
+
+#: src/Rest/ListsController.php:192
+msgid "List deleted."
+msgstr ""
+
+#: src/Rest/ListsController.php:200
+msgid "Multiple wishlists are a Pro feature."
+msgstr ""
+
+#: src/Rest/SettingsController.php:66
+msgid "Settings saved."
+msgstr ""
+
+#: src/Rest/SettingsController.php:72
+msgid "All wishlist data was removed."
+msgstr ""
+
+#: src/Rest/ShareController.php:61
+msgid "Sharing is disabled."
+msgstr ""
+
+#: src/Rest/ShareController.php:86
+msgid "Share link ready."
+msgstr ""
+
+#: src/Rest/ShareController.php:98
+#: src/Rest/ShareController.php:121
+msgid "This wishlist isn't available."
+msgstr ""
+
+#: src/Rest/ShareController.php:128
+msgid "Could not save these items."
+msgstr ""
+
+#. translators: %d: number of items added.
+#: src/Rest/ShareController.php:156
+msgid "%d item saved to your wishlist."
+msgid_plural "%d items saved to your wishlist."
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Rest/ShareController.php:172
+#: src/Rest/ShareController.php:180
+msgid "A customer"
+msgstr ""
+
+#: src/Support/Settings.php:61
+msgid "Add to Wishlist"
+msgstr ""
+
+#: src/Support/Settings.php:62
+msgid "In Wishlist"
+msgstr ""
+
+#: assets/blocks/editor.js:111
+msgid "Shows the toggle for the selected product on the front end."
+msgstr ""
+
+#: assets/blocks/editor.js:112
+msgid "Shows the save-to-wishlist toggle for the current product on the front end."
+msgstr ""

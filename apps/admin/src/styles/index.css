@@ -1,0 +1,131 @@
+@import "tailwindcss" prefix(fw);
+@import "tw-animate-css" prefix(fw);
+
+@theme {
+    --color-brand-50: oklch(0.97 0.02 250);
+    --color-brand-500: oklch(0.65 0.18 250);
+    --color-brand-600: oklch(0.58 0.2 250);
+    --color-brand-700: oklch(0.5 0.2 250);
+
+    --radius-sm: 0.25rem;
+    --radius-md: 0.375rem;
+    --radius-lg: 0.5rem;
+}
+
+/* Tailwind v4 CSS-first dark-mode opt-in. AppProviders sets data-theme on a
+ * wrapper whose value follows the WP admin color scheme. */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+#flexa-wishlist-admin-root,
+.flexa-wishlist-themed {
+    color-scheme: light dark;
+}
+
+/* WP admin's #wpcontent has 20px side padding - this margin trick bleeds the
+ * brand strip to the viewport edge. Keep margin-inline-end at 0 so we don't
+ * trigger a horizontal scrollbar. */
+.flexa-wishlist-wrap {
+    margin-block-start: -10px;
+    margin-block-end: 0;
+    margin-inline-start: -20px;
+    margin-inline-end: 0;
+}
+
+/* WP admin's `h2, h3 { margin: 1em 0 }` (specificity 0,0,1) pushes every
+ * heading we render down by ~16px, and `h1,h2,h3 { color: #1d2327 }` pins
+ * them dark-on-dark. Reset margins and revert the color back to the utilities
+ * layer so the heading's own `fw:text-*` / `fw:dark:text-*` wins. */
+:is(h1, h2, h3)[class*="fw:"] {
+    margin: 0;
+    color: revert-layer;
+}
+
+/* The UA stylesheet (and wp-admin) also gives `<p>` a 1em block margin, which
+ * compounds with the heading reset above - SettingRow descriptions (a `<p>`
+ * directly after the row's `<Label>`) end up with a stray gap. Zero the block
+ * margin on every plugin paragraph; the second selector reaches `<p>` inside
+ * Radix portals, which render outside the themed wrapper. Vertical rhythm
+ * comes from `space-y`/`mt`/`mb`, never the UA default. */
+.flexa-wishlist-themed p,
+p[class*="fw:"] {
+    margin-block: 0;
+}
+
+/* WP's forms.css styles bare `input`, `textarea`, `select` (gray border, 3px
+ * radius, min-height, and a blue focus box-shadow) unlayered, so it beats our
+ * utilities regardless of specificity. Every control carries the
+ * `.flexa-woocommerce-wishlist-control` marker; re-assert the design here,
+ * unlayered + !important. Bare marker (no themed scope) because controls also
+ * render inside Radix Dialog portals. */
+.flexa-woocommerce-wishlist-control {
+    border: 1px solid #cbd5e1 !important; /* slate-300 */
+    border-radius: var(--radius-md) !important;
+    background-color: #fff !important;
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05) !important;
+    min-height: 0 !important;
+    line-height: 1.25rem !important;
+    color: #0f172a !important; /* slate-900 */
+}
+.flexa-woocommerce-wishlist-control:focus,
+.flexa-woocommerce-wishlist-control:focus-visible {
+    outline: none !important;
+    box-shadow: none !important;
+    border-color: var(--color-brand-500) !important;
+}
+[data-theme="dark"] .flexa-woocommerce-wishlist-control {
+    background-color: #2c3338 !important;
+    border-color: #3c434a !important;
+    color: #e6e7e8 !important;
+}
+
+/* WP paints `input[type=checkbox]:focus` with a blue ring outside the box.
+ * The visible checkboxes/radios carry the `.flexa-woocommerce-wishlist-check`
+ * marker; reset the ring on focus. (The Switch's hidden peer/sr-only checkbox
+ * stays unmarked so its peer-driven track ring keeps working.) */
+.flexa-woocommerce-wishlist-check:focus,
+.flexa-woocommerce-wishlist-check:focus-visible {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+/* Dark surface defaults for the app. The whole app is the dark surface
+ * (single root), so scope to `.flexa-wishlist-themed`. High-traffic
+ * backgrounds/borders/text only - components opt in via `dark:` where they
+ * need finer control. */
+[data-theme="dark"] .flexa-wishlist-themed .fw\:bg-slate-50,
+[data-theme="dark"] .flexa-wishlist-themed .fw\:bg-slate-50\/60 {
+    background-color: #1d2327;
+}
+[data-theme="dark"] .flexa-wishlist-themed .fw\:bg-white {
+    background-color: #2c3338;
+    color: inherit;
+}
+[data-theme="dark"] .flexa-wishlist-themed .fw\:bg-slate-100 {
+    background-color: rgb(255 255 255 / 0.08);
+}
+[data-theme="dark"] .flexa-wishlist-themed .fw\:hover\:bg-slate-50:hover,
+[data-theme="dark"] .flexa-wishlist-themed .fw\:hover\:bg-slate-100:hover {
+    background-color: rgb(255 255 255 / 0.06);
+}
+[data-theme="dark"] .flexa-wishlist-themed .fw\:text-slate-500,
+[data-theme="dark"] .flexa-wishlist-themed .fw\:text-slate-600,
+[data-theme="dark"] .flexa-wishlist-themed .fw\:text-slate-700,
+[data-theme="dark"] .flexa-wishlist-themed .fw\:text-slate-800,
+[data-theme="dark"] .flexa-wishlist-themed .fw\:text-slate-900 {
+    color: #e6e7e8;
+}
+[data-theme="dark"] .flexa-wishlist-themed .fw\:border-slate-100,
+[data-theme="dark"] .flexa-wishlist-themed .fw\:border-slate-200,
+[data-theme="dark"] .flexa-wishlist-themed .fw\:border-slate-300 {
+    border-color: #3c434a;
+}
+
+/* Radix Dialog/Tooltip portal to `document.body`, OUTSIDE
+ * `.flexa-wishlist-themed`, so WP's `.wp-core-ui button` (specificity 0,1,1)
+ * outranks the `.fw\:text-white` utility (0,1,0) and turns the label of our
+ * brand/destructive buttons WP link-blue. The only buttons that set
+ * `text-white` sit on a colored background where losing white text breaks
+ * legibility, so a global !important is safe. */
+.fw\:text-white {
+    color: #fff !important;
+}

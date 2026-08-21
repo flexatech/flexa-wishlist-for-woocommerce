@@ -1,0 +1,355 @@
+/**
+ * Flexa Wishlist — storefront styles.
+ * Theming is driven by CSS custom properties injected inline by Assets.php:
+ *   --fw-accent  (defaults to the theme / WooCommerce primary color)
+ *   --fw-radius
+ * Kept lean (§17: <= 8KB gz). State is never communicated by color alone —
+ * the saved state also flips the icon fill + aria-pressed + label (§15).
+ */
+
+:root {
+	--fw-accent: #e0245e;
+	--fw-radius: 8px;
+	--fw-ink: #1d2327;
+	--fw-muted: #6b7280;
+	--fw-border: #e5e7eb;
+	--fw-bg: #ffffff;
+}
+
+/* ---- Button ---------------------------------------------------------- */
+
+.fw-btn-wrap {
+	display: inline-flex;
+}
+
+.fw-btn {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	padding: 8px 14px;
+	border: 1px solid var(--fw-border);
+	border-radius: var(--fw-radius);
+	background: var(--fw-bg);
+	color: var(--fw-ink);
+	font: inherit;
+	line-height: 1.2;
+	cursor: pointer;
+	transition: border-color .15s ease, color .15s ease, transform .1s ease;
+}
+
+.fw-btn:hover {
+	border-color: var(--fw-accent);
+	color: var(--fw-accent);
+}
+
+.fw-btn:focus-visible {
+	outline: 2px solid var(--fw-accent);
+	outline-offset: 2px;
+}
+
+.fw-btn__icon svg {
+	display: block;
+	fill: none;
+	stroke: currentColor;
+	stroke-width: 1.8;
+	stroke-linejoin: round;
+	transition: fill .15s ease, stroke .15s ease, transform .15s ease;
+}
+
+.fw-btn--saved {
+	border-color: var(--fw-accent);
+	color: var(--fw-accent);
+}
+
+.fw-btn--saved .fw-btn__icon svg {
+	fill: var(--fw-accent);
+	stroke: var(--fw-accent);
+	animation: fw-pop .28s ease;
+}
+
+.fw-btn--busy {
+	opacity: .6;
+	pointer-events: none;
+}
+
+/* Icon-only overlay variant on product image (loop / on_image). */
+.fw-btn--loop {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	z-index: 2;
+	padding: 8px;
+	border-radius: 999px;
+	box-shadow: 0 1px 4px rgba(0, 0, 0, .14);
+}
+
+.fw-btn--loop .fw-btn__label {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip: rect(0 0 0 0);
+	white-space: nowrap;
+}
+
+li.product,
+.woocommerce-loop-product__link {
+	position: relative;
+}
+
+@keyframes fw-pop {
+	0% { transform: scale(1); }
+	45% { transform: scale(1.28); }
+	100% { transform: scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.fw-btn__icon svg,
+	.fw-btn { animation: none !important; transition: none !important; }
+}
+
+/* ---- Counter --------------------------------------------------------- */
+
+.fw-counter {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	color: inherit;
+}
+
+.fw-counter__badge {
+	position: absolute;
+	top: -8px;
+	right: -10px;
+	min-width: 18px;
+	height: 18px;
+	padding: 0 5px;
+	border-radius: 999px;
+	background: var(--fw-accent);
+	color: #fff;
+	font-size: 11px;
+	line-height: 18px;
+	text-align: center;
+}
+
+/* ---- Wishlist page --------------------------------------------------- */
+
+.fw-page__loading {
+	display: flex;
+	justify-content: center;
+	padding: 48px 0;
+}
+
+.fw-spinner {
+	width: 28px;
+	height: 28px;
+	border: 3px solid var(--fw-border);
+	border-top-color: var(--fw-accent);
+	border-radius: 50%;
+	animation: fw-spin .8s linear infinite;
+}
+
+@keyframes fw-spin { to { transform: rotate(360deg); } }
+
+.fw-page__list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: grid;
+	gap: 20px;
+}
+
+.fw-page--grid .fw-page__list,
+.fw-page__list.fw-page--grid {
+	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+}
+
+.fw-page--list .fw-page__list {
+	grid-template-columns: 1fr;
+}
+
+.fw-card {
+	display: flex;
+	flex-direction: column;
+	border: 1px solid var(--fw-border);
+	border-radius: var(--fw-radius);
+	overflow: hidden;
+	background: var(--fw-bg);
+}
+
+.fw-page--list .fw-card {
+	flex-direction: row;
+	align-items: center;
+}
+
+.fw-card__media img {
+	display: block;
+	width: 100%;
+	height: auto;
+	aspect-ratio: 1 / 1;
+	object-fit: cover;
+}
+
+.fw-page--list .fw-card__media {
+	flex: 0 0 96px;
+	width: 96px;
+}
+
+.fw-card__body {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+	padding: 12px;
+	flex: 1;
+}
+
+.fw-card__title {
+	font-weight: 600;
+	color: var(--fw-ink);
+	text-decoration: none;
+}
+
+.fw-card__attrs {
+	font-size: 13px;
+	color: var(--fw-muted);
+}
+
+.fw-card__actions {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	margin-top: auto;
+}
+
+.fw-card__cart {
+	flex: 1;
+	text-align: center;
+	padding: 8px 12px;
+	border-radius: var(--fw-radius);
+	background: var(--fw-accent);
+	color: #fff;
+	text-decoration: none;
+	font: inherit;
+	font-size: 14px;
+	border: 0;
+	cursor: pointer;
+}
+
+.fw-card__cart--select {
+	background: transparent;
+	color: var(--fw-accent);
+	border: 1px solid var(--fw-accent);
+}
+
+.fw-card__remove {
+	border: 0;
+	background: transparent;
+	color: var(--fw-muted);
+	font-size: 22px;
+	line-height: 1;
+	cursor: pointer;
+	padding: 2px 6px;
+}
+
+.fw-card__remove:hover { color: var(--fw-accent); }
+
+.fw-card--ghost { opacity: .7; }
+
+/* ---- Empty state ----------------------------------------------------- */
+
+.fw-empty {
+	text-align: center;
+	padding: 56px 20px;
+}
+
+.fw-empty__icon svg {
+	width: 48px;
+	height: 48px;
+	fill: none;
+	stroke: var(--fw-muted);
+	stroke-width: 1.4;
+}
+
+.fw-empty__title { margin: 16px 0 6px; }
+.fw-empty__text { color: var(--fw-muted); margin: 0 0 20px; }
+
+.fw-btn-cta {
+	display: inline-block;
+	padding: 10px 20px;
+	border-radius: var(--fw-radius);
+	background: var(--fw-accent);
+	color: #fff;
+	text-decoration: none;
+	border: 0;
+	cursor: pointer;
+	font: inherit;
+}
+
+.fw-btn-cta--ghost {
+	background: transparent;
+	color: var(--fw-accent);
+	border: 1px solid var(--fw-accent);
+}
+
+.fw-page__toolbar {
+	display: flex;
+	justify-content: flex-end;
+	margin-bottom: 16px;
+}
+
+.fw-page__footer {
+	display: flex;
+	justify-content: center;
+	margin-top: 28px;
+}
+
+/* ---- Shared view ----------------------------------------------------- */
+
+.fw-shared { max-width: 1100px; margin: 0 auto; padding: 24px 16px; }
+.fw-shared__title { margin: 0 0 4px; }
+.fw-shared__owner { color: var(--fw-muted); margin: 0 0 20px; }
+.fw-shared__actions { margin-bottom: 20px; }
+.fw-shared--unavailable { text-align: center; padding: 64px 16px; }
+
+/* ---- Toast ----------------------------------------------------------- */
+
+.fw-toast {
+	position: fixed;
+	left: 50%;
+	bottom: 24px;
+	transform: translate(-50%, 20px);
+	display: flex;
+	align-items: center;
+	gap: 16px;
+	max-width: calc(100vw - 32px);
+	padding: 12px 18px;
+	border-radius: var(--fw-radius);
+	background: #1f2937;
+	color: #fff;
+	box-shadow: 0 6px 24px rgba(0, 0, 0, .22);
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity .2s ease, transform .2s ease;
+	z-index: 100000;
+}
+
+.fw-toast--show {
+	opacity: 1;
+	transform: translate(-50%, 0);
+	pointer-events: auto;
+}
+
+.fw-toast__action {
+	background: transparent;
+	border: 0;
+	color: var(--fw-accent);
+	font: inherit;
+	font-weight: 600;
+	cursor: pointer;
+	text-decoration: none;
+	white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.fw-toast, .fw-spinner { transition: none; animation: none; }
+}

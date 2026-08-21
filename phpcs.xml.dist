@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<ruleset name="Flexa Wishlist">
+	<description>Coding standards for Flexa Wishlist for WooCommerce.</description>
+
+	<!-- What to scan (shipped PHP only; JS/CSS and the build output are elsewhere). -->
+	<file>flexa-woocommerce-wishlist.php</file>
+	<file>uninstall.php</file>
+	<file>src</file>
+
+	<exclude-pattern>*/vendor/*</exclude-pattern>
+	<exclude-pattern>*/node_modules/*</exclude-pattern>
+	<exclude-pattern>*/apps/*</exclude-pattern>
+	<exclude-pattern>*/assets/dist/*</exclude-pattern>
+
+	<!-- Run only against PHP; show sniff codes; use colour. -->
+	<arg name="extensions" value="php"/>
+	<arg name="basepath" value="."/>
+	<arg name="parallel" value="8"/>
+	<arg name="colors"/>
+	<arg value="sp"/>
+
+	<!--
+		Base standard: WordPress-Extra (Core + best practices) WITHOUT
+		WordPress-Docs. The lineage ships minimal file/class headers by design,
+		so the Squiz doc-comment / @package requirements are intentionally not
+		enforced. Short arrays and slash-separated hooks are also deliberate
+		(see the excludes / properties below).
+	-->
+	<rule ref="WordPress-Extra">
+		<!-- Short array syntax [] is the deliberate house style across the whole
+		     lineage; the WordPress-Extra ban on it is intentionally disabled. -->
+		<exclude name="Universal.Arrays.DisallowShortArraySyntax"/>
+		<exclude name="Generic.Arrays.DisallowShortArraySyntax"/>
+		<!-- Short ternary (?:) is used deliberately (e.g. nonce header fallback). -->
+		<exclude name="Universal.Operators.DisallowShortTernary.Found"/>
+		<!-- "$list" is a plain, readable variable name here; only the bare
+		     keyword list() is reserved, not the $-prefixed variable. -->
+		<exclude name="Universal.NamingConventions.NoReservedKeywordParameterNames"/>
+		<!-- PSR-4 file naming (PascalCase, one class per file) is the lineage
+		     convention with composer autoloading; the WP class-*.php file-name
+		     rules are intentionally not applied. -->
+		<exclude name="WordPress.Files.FileName"/>
+	</rule>
+
+	<!-- PHP 8.2+ compatibility. -->
+	<config name="testVersion" value="8.2-"/>
+	<rule ref="PHPCompatibilityWP"/>
+
+	<!-- Minimum supported WordPress version for deprecation/availability sniffs. -->
+	<config name="minimum_wp_version" value="6.4"/>
+
+	<!-- Text domain for all i18n function calls. -->
+	<rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain" type="array">
+				<element value="flexa-woocommerce-wishlist"/>
+			</property>
+		</properties>
+	</rule>
+
+	<!-- Allowed global prefixes (functions, hooks, options, constants, classes). -->
+	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+		<properties>
+			<property name="prefixes" type="array">
+				<element value="flexa_wishlist"/>
+				<element value="flexa_wl"/>
+				<element value="FLEXA_WISHLIST"/>
+				<element value="Flexa\Wishlist"/>
+				<element value="Flexa\WishlistPro"/>
+			</property>
+		</properties>
+	</rule>
+
+	<!-- Slash-separated hook names are the house style; treat "/" as a word
+	     delimiter so flexa_wishlist/domain/event is valid. -->
+	<rule ref="WordPress.NamingConventions.ValidHookName">
+		<properties>
+			<property name="additionalWordDelimiters" value="/"/>
+		</properties>
+	</rule>
+</ruleset>

@@ -1,0 +1,30 @@
+# === Dependencies (restored via composer / pnpm — never commit) ===
+/vendor/
+/node_modules/
+/apps/admin/node_modules/
+
+# Keep lock files tracked (reproducible installs): composer.lock, pnpm-lock.yaml
+
+# === Build / test caches ===
+/.phpunit.cache/
+/.phpunit.result.cache
+/apps/admin/.vite/
+*.log
+
+# === OS / editor cruft ===
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*~
+
+# === Local WP / env ===
+.env
+.env.local
+
+# NOTE: assets/dist/ (the built admin bundle) IS committed so a fresh
+# checkout runs in WordPress without a build step. If you move to a
+# CI-built release flow, add "/assets/dist/" here.

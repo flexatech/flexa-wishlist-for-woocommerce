@@ -1,0 +1,23 @@
+parameters:
+    level: 6
+    # WooCommerce stubs type nullable runtime state (e.g. WC()->cart) as
+    # non-null via PHPDoc, so genuine runtime null-guards read as "always true".
+    # Relaxing PHPDoc certainty keeps those guards honest; real declared-type
+    # bugs are still caught.
+    treatPhpDocTypesAsCertain: false
+    paths:
+        - src
+        - uninstall.php
+    excludePaths:
+        # Elementor widgets extend \Elementor\* base classes; no stubs ship, and
+        # the code loads only when Elementor is active. Kept out of analysis.
+        - src/Integration/Elementor/*
+    bootstrapFiles:
+        - phpstan-bootstrap.php
+    scanDirectories:
+        - vendor/php-stubs/woocommerce-stubs
+    scanFiles:
+        - vendor/php-stubs/wp-cli-stubs/wp-cli-stubs.php
+
+includes:
+    - vendor/szepeviktor/phpstan-wordpress/extension.neon

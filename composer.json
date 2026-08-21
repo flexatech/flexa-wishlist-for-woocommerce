@@ -1,0 +1,41 @@
+{
+    "name": "flexatech/flexa-woocommerce-wishlist",
+    "description": "A mobile-first, cache-safe wishlist for WooCommerce.",
+    "type": "wordpress-plugin",
+    "license": "GPL-2.0-or-later",
+    "require": {
+        "php": ">=8.2"
+    },
+    "require-dev": {
+        "php-stubs/wp-cli-stubs": "^2.10",
+        "php-stubs/woocommerce-stubs": "^9.0",
+        "phpcompatibility/phpcompatibility-wp": "^2.1",
+        "phpstan/phpstan": "^2.0",
+        "phpunit/phpunit": "^10.5",
+        "szepeviktor/phpstan-wordpress": "^2.0",
+        "wp-coding-standards/wpcs": "^3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Flexa\\Wishlist\\": "src/",
+            "Flexa\\WishlistPro\\": "src-pro/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Flexa\\Wishlist\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        },
+        "sort-packages": true
+    },
+    "scripts": {
+        "lint": "phpcs",
+        "lint:fix": "phpcbf",
+        "analyse": "phpstan analyse --memory-limit=1G",
+        "test": "phpunit"
+    }
+}

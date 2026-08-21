@@ -1,0 +1,44 @@
+# Files/dirs excluded from the distributed plugin zip (wp dist-archive).
+# Everything NOT listed here ships. Runtime needs: main file, uninstall.php,
+# readme.txt, src/, views/, assets/{frontend,blocks,dist}/, i18n/. The plugin
+# has a fallback autoloader and no runtime composer deps, so vendor/ is dev-only.
+
+# --- Version control / repo meta ---
+.git
+.gitignore
+.gitattributes
+.github
+.distignore
+
+# --- Dependencies (dev-only; restored via composer/pnpm) ---
+vendor
+node_modules
+apps/admin/node_modules
+
+# --- Front-end build tooling & caches (source in apps/admin/src stays for §21) ---
+apps/admin/.vite
+apps/admin/dist
+.phpunit.cache
+.phpunit.result.cache
+
+# --- Tests & static-analysis config (not shipped; some lack the ABSPATH guard) ---
+tests
+phpstan-bootstrap.php
+phpstan.neon
+phpcs.xml.dist
+phpunit.xml.dist
+
+# --- Composer/npm manifests & locks (dev tooling only) ---
+composer.json
+composer.lock
+package.json
+pnpm-lock.yaml
+
+# --- Internal docs (planning/spec, not end-user facing) ---
+docs
+
+# --- OS / editor cruft ---
+.DS_Store
+Thumbs.db
+.idea
+.vscode
