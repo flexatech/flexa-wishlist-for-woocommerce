@@ -28,8 +28,7 @@ if ( $flexa_wl_purge ) {
 
 	// phpcs:disable WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL
 	foreach ( [ 'flexa_wl_items', 'flexa_wl_lists', 'flexa_wl_stock_subs', 'flexa_wl_analytics' ] as $flexa_wl_table ) {
-		$flexa_wl_name = $wpdb->prefix . $flexa_wl_table;
-		$wpdb->query( "DROP TABLE IF EXISTS {$flexa_wl_name}" );
+		$wpdb->query( $wpdb->prepare( 'DROP TABLE IF EXISTS %i', $wpdb->prefix . $flexa_wl_table ) );
 	}
 
 	$flexa_wl_like    = $wpdb->esc_like( '_transient_flexa_wl_count_' ) . '%';

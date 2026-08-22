@@ -122,8 +122,7 @@ final class Migrator {
 
 		// phpcs:disable WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL
 		foreach ( [ self::ITEM_TABLE, self::LIST_TABLE, self::STOCK_SUB_TABLE, self::ANALYTICS_TABLE ] as $table ) {
-			$name = $wpdb->prefix . $table;
-			$wpdb->query( "DROP TABLE IF EXISTS {$name}" );
+			$wpdb->query( $wpdb->prepare( 'DROP TABLE IF EXISTS %i', $wpdb->prefix . $table ) );
 		}
 		// phpcs:enable WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL
 
