@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Flexa Wishlist for WooCommerce 1.0.0\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/flexa-woocommerce-wishlist\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/flexa-wishlist-for-woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -12,28 +12,28 @@ msgstr ""
 "POT-Creation-Date: 2026-08-21T06:56:54+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
-"X-Domain: flexa-woocommerce-wishlist\n"
+"X-Domain: flexa-wishlist-for-woocommerce\n"
 
 #. Plugin Name of the plugin
-#: flexa-woocommerce-wishlist.php
+#: flexa-wishlist-for-woocommerce.php
 msgid "Flexa Wishlist for WooCommerce"
 msgstr ""
 
 #. Description of the plugin
-#: flexa-woocommerce-wishlist.php
+#: flexa-wishlist-for-woocommerce.php
 msgid "A mobile-first, cache-safe wishlist for WooCommerce: one-tap save, guest persistence, silent account merge, a beautiful wishlist page, and effortless sharing."
 msgstr ""
 
 #. Author of the plugin
-#: flexa-woocommerce-wishlist.php
+#: flexa-wishlist-for-woocommerce.php
 msgid "FlexaTech"
 msgstr ""
 
-#: flexa-woocommerce-wishlist.php:29
+#: flexa-wishlist-for-woocommerce.php:29
 msgid "Flexa Wishlist requires PHP 8.2 or higher. The plugin has been disabled."
 msgstr ""
 
-#: flexa-woocommerce-wishlist.php:87
+#: flexa-wishlist-for-woocommerce.php:87
 msgid "Flexa Wishlist requires WooCommerce to be installed and active."
 msgstr ""
 

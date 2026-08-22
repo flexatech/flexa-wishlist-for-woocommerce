@@ -19,7 +19,7 @@ add_action(
 		$elements_manager->add_category(
 			'flexa-wishlist',
 			[
-				'title' => __( 'Wishlist', 'flexa-woocommerce-wishlist' ),
+				'title' => __( 'Wishlist', 'flexa-wishlist-for-woocommerce' ),
 				'icon'  => 'eicon-heart',
 			]
 		);

@@ -7,7 +7,7 @@
  * `wp i18n make-pot` extractor can find them statically.
  */
 
-const TEXT_DOMAIN = "flexa-woocommerce-wishlist";
+const TEXT_DOMAIN = "flexa-wishlist-for-woocommerce";
 
 interface WpI18n {
     __(text: string, domain?: string): string;

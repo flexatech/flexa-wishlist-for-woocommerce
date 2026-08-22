@@ -30,7 +30,7 @@ final class PageRenderer {
 		<div class="fw-page fw-page--<?php echo esc_attr( $layout ); ?>" data-fw-page data-fw-layout="<?php echo esc_attr( $layout ); ?>">
 			<div class="fw-page__loading" data-fw-page-loading>
 				<span class="fw-spinner" aria-hidden="true"></span>
-				<span class="screen-reader-text"><?php esc_html_e( 'Loading your wishlist…', 'flexa-woocommerce-wishlist' ); ?></span>
+				<span class="screen-reader-text"><?php esc_html_e( 'Loading your wishlist…', 'flexa-wishlist-for-woocommerce' ); ?></span>
 			</div>
 
 			<div class="fw-page__empty" data-fw-page-empty hidden>
@@ -38,16 +38,16 @@ final class PageRenderer {
 					<div class="fw-empty__icon" aria-hidden="true">
 						<?php echo ButtonRenderer::icon_svg( (string) Settings::get( 'appearance', 'icon' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 					</div>
-					<h2 class="fw-empty__title"><?php esc_html_e( 'Your wishlist is empty', 'flexa-woocommerce-wishlist' ); ?></h2>
-					<p class="fw-empty__text"><?php esc_html_e( 'Save items you love by tapping the heart. They’ll show up here.', 'flexa-woocommerce-wishlist' ); ?></p>
-					<a class="fw-btn-cta" href="<?php echo esc_url( (string) $shop_url ); ?>"><?php esc_html_e( 'Start shopping', 'flexa-woocommerce-wishlist' ); ?></a>
+					<h2 class="fw-empty__title"><?php esc_html_e( 'Your wishlist is empty', 'flexa-wishlist-for-woocommerce' ); ?></h2>
+					<p class="fw-empty__text"><?php esc_html_e( 'Save items you love by tapping the heart. They’ll show up here.', 'flexa-wishlist-for-woocommerce' ); ?></p>
+					<a class="fw-btn-cta" href="<?php echo esc_url( (string) $shop_url ); ?>"><?php esc_html_e( 'Start shopping', 'flexa-wishlist-for-woocommerce' ); ?></a>
 				</div>
 			</div>
 
 			<?php if ( $show_cart ) : ?>
 				<div class="fw-page__toolbar" data-fw-page-toolbar hidden>
 					<button type="button" class="fw-btn-cta fw-add-all" data-fw-add-all hidden>
-						<?php esc_html_e( 'Add all to cart', 'flexa-woocommerce-wishlist' ); ?>
+						<?php esc_html_e( 'Add all to cart', 'flexa-wishlist-for-woocommerce' ); ?>
 					</button>
 				</div>
 			<?php endif; ?>
@@ -55,11 +55,11 @@ final class PageRenderer {
 			<ul class="fw-page__list" data-fw-page-list hidden></ul>
 
 			<div class="fw-page__footer" data-fw-page-footer hidden>
-				<button type="button" class="fw-btn-cta fw-btn-cta--ghost" data-fw-load-more hidden><?php esc_html_e( 'Load more', 'flexa-woocommerce-wishlist' ); ?></button>
+				<button type="button" class="fw-btn-cta fw-btn-cta--ghost" data-fw-load-more hidden><?php esc_html_e( 'Load more', 'flexa-wishlist-for-woocommerce' ); ?></button>
 			</div>
 
 			<noscript>
-				<p><?php esc_html_e( 'Your wishlist requires JavaScript to display.', 'flexa-woocommerce-wishlist' ); ?></p>
+				<p><?php esc_html_e( 'Your wishlist requires JavaScript to display.', 'flexa-wishlist-for-woocommerce' ); ?></p>
 			</noscript>
 		</div>
 		<?php

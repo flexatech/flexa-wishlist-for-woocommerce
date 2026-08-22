@@ -26,7 +26,7 @@ final class AdminMenu {
 		$settings = sprintf(
 			'<a href="%s">%s</a>',
 			esc_url( admin_url( 'admin.php?page=' . self::SLUG ) ),
-			esc_html__( 'Settings', 'flexa-woocommerce-wishlist' )
+			esc_html__( 'Settings', 'flexa-wishlist-for-woocommerce' )
 		);
 		array_unshift( $links, $settings );
 		return $links;
@@ -34,8 +34,8 @@ final class AdminMenu {
 
 	public function register_menu(): void {
 		add_menu_page(
-			__( 'Flexa Wishlist', 'flexa-woocommerce-wishlist' ),
-			__( 'Wishlist', 'flexa-woocommerce-wishlist' ),
+			__( 'Flexa Wishlist', 'flexa-wishlist-for-woocommerce' ),
+			__( 'Wishlist', 'flexa-wishlist-for-woocommerce' ),
 			\Flexa\Wishlist\Support\Capabilities::MANAGE,
 			self::SLUG,
 			[ $this, 'render_page' ],

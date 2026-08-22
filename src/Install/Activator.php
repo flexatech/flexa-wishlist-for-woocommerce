@@ -42,7 +42,7 @@ final class Activator {
 		} else {
 			$page_id = (int) wp_insert_post(
 				[
-					'post_title'   => __( 'Wishlist', 'flexa-woocommerce-wishlist' ),
+					'post_title'   => __( 'Wishlist', 'flexa-wishlist-for-woocommerce' ),
 					'post_name'    => 'wishlist',
 					'post_content' => '<!-- wp:shortcode -->[flexa_wishlist]<!-- /wp:shortcode -->',
 					'post_status'  => 'publish',

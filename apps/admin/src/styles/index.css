@@ -54,10 +54,10 @@ p[class*="fw:"] {
 /* WP's forms.css styles bare `input`, `textarea`, `select` (gray border, 3px
  * radius, min-height, and a blue focus box-shadow) unlayered, so it beats our
  * utilities regardless of specificity. Every control carries the
- * `.flexa-woocommerce-wishlist-control` marker; re-assert the design here,
+ * `.flexa-wishlist-for-woocommerce-control` marker; re-assert the design here,
  * unlayered + !important. Bare marker (no themed scope) because controls also
  * render inside Radix Dialog portals. */
-.flexa-woocommerce-wishlist-control {
+.flexa-wishlist-for-woocommerce-control {
     border: 1px solid #cbd5e1 !important; /* slate-300 */
     border-radius: var(--radius-md) !important;
     background-color: #fff !important;
@@ -66,24 +66,24 @@ p[class*="fw:"] {
     line-height: 1.25rem !important;
     color: #0f172a !important; /* slate-900 */
 }
-.flexa-woocommerce-wishlist-control:focus,
-.flexa-woocommerce-wishlist-control:focus-visible {
+.flexa-wishlist-for-woocommerce-control:focus,
+.flexa-wishlist-for-woocommerce-control:focus-visible {
     outline: none !important;
     box-shadow: none !important;
     border-color: var(--color-brand-500) !important;
 }
-[data-theme="dark"] .flexa-woocommerce-wishlist-control {
+[data-theme="dark"] .flexa-wishlist-for-woocommerce-control {
     background-color: #2c3338 !important;
     border-color: #3c434a !important;
     color: #e6e7e8 !important;
 }
 
 /* WP paints `input[type=checkbox]:focus` with a blue ring outside the box.
- * The visible checkboxes/radios carry the `.flexa-woocommerce-wishlist-check`
+ * The visible checkboxes/radios carry the `.flexa-wishlist-for-woocommerce-check`
  * marker; reset the ring on focus. (The Switch's hidden peer/sr-only checkbox
  * stays unmarked so its peer-driven track ring keeps working.) */
-.flexa-woocommerce-wishlist-check:focus,
-.flexa-woocommerce-wishlist-check:focus-visible {
+.flexa-wishlist-for-woocommerce-check:focus,
+.flexa-wishlist-for-woocommerce-check:focus-visible {
     outline: none !important;
     box-shadow: none !important;
 }

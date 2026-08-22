@@ -21,7 +21,7 @@ final class ButtonWidget extends Widget_Base {
 	}
 
 	public function get_title(): string {
-		return __( 'Wishlist Button', 'flexa-woocommerce-wishlist' );
+		return __( 'Wishlist Button', 'flexa-wishlist-for-woocommerce' );
 	}
 
 	public function get_icon(): string {
@@ -45,17 +45,17 @@ final class ButtonWidget extends Widget_Base {
 	protected function register_controls(): void {
 		$this->start_controls_section(
 			'section_content',
-			[ 'label' => __( 'Button', 'flexa-woocommerce-wishlist' ) ]
+			[ 'label' => __( 'Button', 'flexa-wishlist-for-woocommerce' ) ]
 		);
 
 		$this->add_control(
 			'product_id',
 			[
-				'label'       => __( 'Product ID', 'flexa-woocommerce-wishlist' ),
+				'label'       => __( 'Product ID', 'flexa-wishlist-for-woocommerce' ),
 				'type'        => Controls_Manager::NUMBER,
 				'default'     => 0,
 				'min'         => 0,
-				'description' => __( 'Leave 0 to use the current product.', 'flexa-woocommerce-wishlist' ),
+				'description' => __( 'Leave 0 to use the current product.', 'flexa-wishlist-for-woocommerce' ),
 			]
 		);
 

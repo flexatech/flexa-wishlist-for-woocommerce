@@ -11,7 +11,7 @@
  * Author:            FlexaTech
  * License:           GPL v2 or later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:       flexa-woocommerce-wishlist
+ * Text Domain:       flexa-wishlist-for-woocommerce
  * Domain Path:       /i18n/languages
  *
  * @package Flexa\Wishlist
@@ -26,7 +26,7 @@ if ( version_compare( PHP_VERSION, '8.2', '<' ) ) {
 		'admin_notices',
 		static function (): void {
 			echo '<div class="notice notice-error"><p>';
-			echo esc_html__( 'Flexa Wishlist requires PHP 8.2 or higher. The plugin has been disabled.', 'flexa-woocommerce-wishlist' );
+			echo esc_html__( 'Flexa Wishlist requires PHP 8.2 or higher. The plugin has been disabled.', 'flexa-wishlist-for-woocommerce' );
 			echo '</p></div>';
 		}
 	);
@@ -39,7 +39,7 @@ define( 'FLEXA_WISHLIST_PATH', plugin_dir_path( __FILE__ ) );
 define( 'FLEXA_WISHLIST_URL', plugin_dir_url( __FILE__ ) );
 define( 'FLEXA_WISHLIST_BASENAME', plugin_basename( __FILE__ ) );
 define( 'FLEXA_WISHLIST_REST_NAMESPACE', 'flexa-wishlist/v1' );
-define( 'FLEXA_WISHLIST_TEXT_DOMAIN', 'flexa-woocommerce-wishlist' );
+define( 'FLEXA_WISHLIST_TEXT_DOMAIN', 'flexa-wishlist-for-woocommerce' );
 
 if ( file_exists( FLEXA_WISHLIST_PATH . 'vendor/autoload.php' ) ) {
 	require_once FLEXA_WISHLIST_PATH . 'vendor/autoload.php';
@@ -84,7 +84,7 @@ add_action(
 						return;
 					}
 					echo '<div class="notice notice-warning"><p>';
-					echo esc_html__( 'Flexa Wishlist requires WooCommerce to be installed and active.', 'flexa-woocommerce-wishlist' );
+					echo esc_html__( 'Flexa Wishlist requires WooCommerce to be installed and active.', 'flexa-wishlist-for-woocommerce' );
 					echo '</p></div>';
 				}
 			);

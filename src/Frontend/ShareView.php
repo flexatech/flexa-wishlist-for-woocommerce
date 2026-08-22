@@ -51,11 +51,11 @@ final class ShareView {
 			</header>
 
 			<?php if ( empty( $items ) ) : ?>
-				<p class="fw-shared__empty"><?php esc_html_e( 'This wishlist has no items yet.', 'flexa-woocommerce-wishlist' ); ?></p>
+				<p class="fw-shared__empty"><?php esc_html_e( 'This wishlist has no items yet.', 'flexa-wishlist-for-woocommerce' ); ?></p>
 			<?php else : ?>
 				<div class="fw-shared__actions">
 					<button type="button" class="fw-btn-cta" data-fw-save-all data-fw-slug="<?php echo esc_attr( (string) $list->share_slug ); ?>">
-						<?php esc_html_e( 'Save all to my wishlist', 'flexa-woocommerce-wishlist' ); ?>
+						<?php esc_html_e( 'Save all to my wishlist', 'flexa-wishlist-for-woocommerce' ); ?>
 					</button>
 				</div>
 				<ul class="fw-page__list fw-page--grid" data-fw-shared-list>
@@ -81,9 +81,9 @@ final class ShareView {
 		$shop_url = function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 'shop' ) : home_url( '/' );
 		?>
 		<div class="fw-shared fw-shared--unavailable">
-			<h1><?php esc_html_e( "This wishlist isn't available", 'flexa-woocommerce-wishlist' ); ?></h1>
-			<p><?php esc_html_e( 'The link may have been changed or the list made private.', 'flexa-woocommerce-wishlist' ); ?></p>
-			<a class="fw-btn-cta" href="<?php echo esc_url( (string) $shop_url ); ?>"><?php esc_html_e( 'Continue shopping', 'flexa-woocommerce-wishlist' ); ?></a>
+			<h1><?php esc_html_e( "This wishlist isn't available", 'flexa-wishlist-for-woocommerce' ); ?></h1>
+			<p><?php esc_html_e( 'The link may have been changed or the list made private.', 'flexa-wishlist-for-woocommerce' ); ?></p>
+			<a class="fw-btn-cta" href="<?php echo esc_url( (string) $shop_url ); ?>"><?php esc_html_e( 'Continue shopping', 'flexa-wishlist-for-woocommerce' ); ?></a>
 		</div>
 		<?php
 		get_footer();
@@ -96,7 +96,7 @@ final class ShareView {
 		$store = get_bloginfo( 'name' );
 		$title = sprintf(
 			/* translators: 1: owner name, 2: store name. */
-			__( '%1$s at %2$s', 'flexa-woocommerce-wishlist' ),
+			__( '%1$s at %2$s', 'flexa-wishlist-for-woocommerce' ),
 			$list->name,
 			$store
 		);
@@ -151,14 +151,14 @@ final class ShareView {
 
 	private function owner_line( Wishlist $list ): string {
 		if ( ! (bool) Settings::get( 'sharing', 'show_owner_name' ) || $list->owner_user_id <= 0 ) {
-			return __( "A customer's wishlist", 'flexa-woocommerce-wishlist' );
+			return __( "A customer's wishlist", 'flexa-wishlist-for-woocommerce' );
 		}
 		$user = get_userdata( $list->owner_user_id );
 		$name = $user instanceof \WP_User ? $user->display_name : '';
 		if ( '' === $name ) {
-			return __( "A customer's wishlist", 'flexa-woocommerce-wishlist' );
+			return __( "A customer's wishlist", 'flexa-wishlist-for-woocommerce' );
 		}
 		/* translators: %s: customer display name. */
-		return sprintf( __( "%s's wishlist", 'flexa-woocommerce-wishlist' ), $name );
+		return sprintf( __( "%s's wishlist", 'flexa-wishlist-for-woocommerce' ), $name );
 	}
 }

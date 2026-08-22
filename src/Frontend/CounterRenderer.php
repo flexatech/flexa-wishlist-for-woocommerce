@@ -21,7 +21,7 @@ final class CounterRenderer {
 		$page_id = (int) Settings::get( 'general', 'page_id' );
 		$url     = $page_id > 0 ? get_permalink( $page_id ) : home_url( '/' );
 		$icon    = ButtonRenderer::icon_svg( (string) Settings::get( 'appearance', 'icon' ) );
-		$label   = __( 'View wishlist', 'flexa-woocommerce-wishlist' );
+		$label   = __( 'View wishlist', 'flexa-wishlist-for-woocommerce' );
 
 		return sprintf(
 			'<a class="fw-counter" href="%1$s" data-fw-counter aria-label="%2$s">%3$s<span class="fw-counter__badge" data-fw-count hidden>0</span></a>',

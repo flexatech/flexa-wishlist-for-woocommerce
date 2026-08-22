@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Build a production zip of flexa-woocommerce-wishlist into ./build/.
+# Build a production zip of flexa-wishlist-for-woocommerce into ./build/.
 #
 # The package honours .distignore. This plugin has no runtime composer
 # dependencies (only a `php` constraint + a fallback autoloader), and vendor/
@@ -7,7 +7,7 @@
 # front-end build that refreshes assets/dist/.
 set -euo pipefail
 
-PLUGIN_SLUG="flexa-woocommerce-wishlist"
+PLUGIN_SLUG="flexa-wishlist-for-woocommerce"
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 BUILD_DIR="${ROOT_DIR}/build"
 STAGE_DIR="${BUILD_DIR}/${PLUGIN_SLUG}"

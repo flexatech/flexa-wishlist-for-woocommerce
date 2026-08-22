@@ -69,7 +69,7 @@ final class CartController extends BaseRestController {
 
 		$item = $items->find( (int) $request->get_param( 'itemId' ) );
 		if ( ! $item instanceof Item || ! $items->owned_by( $item, $lists->ids_for_owner( $owner ) ) ) {
-			return $this->fail( 'not_found', __( 'Item not found.', 'flexa-woocommerce-wishlist' ), 404 );
+			return $this->fail( 'not_found', __( 'Item not found.', 'flexa-wishlist-for-woocommerce' ), 404 );
 		}
 
 		$cart    = new CartService();
@@ -95,7 +95,7 @@ final class CartController extends BaseRestController {
 				'cartUrl'   => $cart->cart_url(),
 				'state'     => ( new WishlistService() )->state( $owner ),
 			],
-			__( 'Added to cart.', 'flexa-woocommerce-wishlist' )
+			__( 'Added to cart.', 'flexa-wishlist-for-woocommerce' )
 		);
 	}
 
@@ -108,7 +108,7 @@ final class CartController extends BaseRestController {
 		if ( $list_id > 0 ) {
 			$list = $lists->find( $list_id );
 			if ( ! $list instanceof Wishlist || ! $lists->owns( $list, $owner ) ) {
-				return $this->fail( 'not_found', __( 'Wishlist not found.', 'flexa-woocommerce-wishlist' ), 404 );
+				return $this->fail( 'not_found', __( 'Wishlist not found.', 'flexa-wishlist-for-woocommerce' ), 404 );
 			}
 		} else {
 			$list = $lists->default_for_owner( $owner );
@@ -123,7 +123,7 @@ final class CartController extends BaseRestController {
 					'cartUrl'   => ( new CartService() )->cart_url(),
 					'state'     => $service->state( $owner ),
 				],
-				__( 'Your wishlist is empty.', 'flexa-woocommerce-wishlist' )
+				__( 'Your wishlist is empty.', 'flexa-wishlist-for-woocommerce' )
 			);
 		}
 
@@ -158,9 +158,9 @@ final class CartController extends BaseRestController {
 		$added = $outcome['added'];
 		if ( $added > 0 ) {
 			/* translators: %d: number of products added to the cart. */
-			$message = sprintf( _n( 'Added %d item to your cart.', 'Added %d items to your cart.', $added, 'flexa-woocommerce-wishlist' ), $added );
+			$message = sprintf( _n( 'Added %d item to your cart.', 'Added %d items to your cart.', $added, 'flexa-wishlist-for-woocommerce' ), $added );
 		} else {
-			$message = __( 'No items could be added to the cart.', 'flexa-woocommerce-wishlist' );
+			$message = __( 'No items could be added to the cart.', 'flexa-wishlist-for-woocommerce' );
 		}
 
 		return $this->success(
@@ -181,13 +181,13 @@ final class CartController extends BaseRestController {
 	private function reason_message( string $reason ): string {
 		switch ( $reason ) {
 			case CartService::OUT_OF_STOCK:
-				return __( 'This item is out of stock.', 'flexa-woocommerce-wishlist' );
+				return __( 'This item is out of stock.', 'flexa-wishlist-for-woocommerce' );
 			case CartService::NEEDS_SELECTION:
-				return __( 'Choose the options for this item on its product page first.', 'flexa-woocommerce-wishlist' );
+				return __( 'Choose the options for this item on its product page first.', 'flexa-wishlist-for-woocommerce' );
 			case CartService::UNAVAILABLE:
-				return __( 'This item is no longer available.', 'flexa-woocommerce-wishlist' );
+				return __( 'This item is no longer available.', 'flexa-wishlist-for-woocommerce' );
 			default:
-				return __( 'This item could not be added to the cart.', 'flexa-woocommerce-wishlist' );
+				return __( 'This item could not be added to the cart.', 'flexa-wishlist-for-woocommerce' );
 		}
 	}
 }

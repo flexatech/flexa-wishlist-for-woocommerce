@@ -69,7 +69,7 @@ Yes — WCAG 2.2 AA. Saved state is never communicated by color alone.
 Yes. Each item has an add-to-cart action, and the wishlist page offers "Add all to cart". Items that can't be added (out of stock, or variable products that need an option selected) are clearly skipped with a reason.
 
 = Is it translation-ready? =
-Yes. All strings use the `flexa-woocommerce-wishlist` text domain and a `.pot` template is included under `/i18n/languages`.
+Yes. All strings use the `flexa-wishlist-for-woocommerce` text domain and a `.pot` template is included under `/i18n/languages`.
 
 = What happens to my data when I uninstall? =
 Uninstalling removes the plugin's tables and options so nothing is left behind. Deactivating alone keeps your data intact.
@@ -88,7 +88,7 @@ The plugin ships a compiled admin interface (`assets/dist/`) built from the
 human-readable source in `apps/admin/src/`. The full source and build tooling
 are also public at:
 
-https://github.com/flexatech/flexa-woocommerce-wishlist
+https://github.com/flexatech/flexa-wishlist-for-woocommerce
 
 The admin app is built with pnpm and Vite:
 

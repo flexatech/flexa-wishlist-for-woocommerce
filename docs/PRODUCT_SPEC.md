@@ -1,4 +1,4 @@
-# Flexa WooCommerce Wishlist — Product + UX + Functional Specification
+# Flexa Wishlist for WooCommerce — Product + UX + Functional Specification
 
 > **Status:** Final product specification, v1.1 — 2026-08-21 (all §26 open questions resolved by product owner; implementation-ready)
 > **Author role:** Lead Product Designer / UX Architect / Product Strategist
@@ -19,7 +19,7 @@ These values are final. They follow the Flexa lineage rules and must not be re-i
 
 | Token | Value |
 |---|---|
-| Plugin folder / slug / text-domain | `flexa-woocommerce-wishlist` |
+| Plugin folder / slug / text-domain | `flexa-wishlist-for-woocommerce` |
 | Display name | **Flexa Wishlist for WooCommerce** |
 | PHP namespace (Free) | `Flexa\Wishlist\` → `includes/` (or `src/` — match scaffold) |
 | PHP namespace (Pro) | `Flexa\WishlistPro\` → `src-pro/` |

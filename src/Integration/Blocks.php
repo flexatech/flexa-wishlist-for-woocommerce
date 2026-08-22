@@ -39,14 +39,14 @@ final class Blocks {
 		);
 
 		if ( function_exists( 'wp_set_script_translations' ) ) {
-			wp_set_script_translations( self::EDITOR_HANDLE, 'flexa-woocommerce-wishlist' );
+			wp_set_script_translations( self::EDITOR_HANDLE, 'flexa-wishlist-for-woocommerce' );
 		}
 
 		register_block_type(
 			'flexa-wishlist/page',
 			[
-				'title'           => __( 'Wishlist', 'flexa-woocommerce-wishlist' ),
-				'description'     => __( 'The full wishlist page.', 'flexa-woocommerce-wishlist' ),
+				'title'           => __( 'Wishlist', 'flexa-wishlist-for-woocommerce' ),
+				'description'     => __( 'The full wishlist page.', 'flexa-wishlist-for-woocommerce' ),
 				'category'        => 'woocommerce',
 				'icon'            => 'heart',
 				'editor_script'   => self::EDITOR_HANDLE,
@@ -67,8 +67,8 @@ final class Blocks {
 		register_block_type(
 			'flexa-wishlist/button',
 			[
-				'title'           => __( 'Wishlist Button', 'flexa-woocommerce-wishlist' ),
-				'description'     => __( 'A save-to-wishlist toggle for a product.', 'flexa-woocommerce-wishlist' ),
+				'title'           => __( 'Wishlist Button', 'flexa-wishlist-for-woocommerce' ),
+				'description'     => __( 'A save-to-wishlist toggle for a product.', 'flexa-wishlist-for-woocommerce' ),
 				'category'        => 'woocommerce',
 				'icon'            => 'heart',
 				'editor_script'   => self::EDITOR_HANDLE,
@@ -86,8 +86,8 @@ final class Blocks {
 		register_block_type(
 			'flexa-wishlist/counter',
 			[
-				'title'           => __( 'Wishlist Counter', 'flexa-woocommerce-wishlist' ),
-				'description'     => __( 'A link to the wishlist with a saved-count badge.', 'flexa-woocommerce-wishlist' ),
+				'title'           => __( 'Wishlist Counter', 'flexa-wishlist-for-woocommerce' ),
+				'description'     => __( 'A link to the wishlist with a saved-count badge.', 'flexa-wishlist-for-woocommerce' ),
 				'category'        => 'woocommerce',
 				'icon'            => 'heart',
 				'editor_script'   => self::EDITOR_HANDLE,

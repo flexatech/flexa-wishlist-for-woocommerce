@@ -567,7 +567,7 @@ function AppearancePane({ form, onChange }: PaneProps<"appearance">) {
                     value={a.custom_css}
                     placeholder=".flexa-wishlist { }"
                     onChange={(e) => onChange({ custom_css: e.target.value })}
-                    className="flexa-woocommerce-wishlist-control fw:w-full fw:rounded-md fw:border fw:border-slate-300 fw:bg-white fw:px-3 fw:py-2 fw:font-mono fw:text-sm fw:shadow-sm fw:transition-colors fw:placeholder:text-slate-400 fw:focus-visible:outline-none fw:focus-visible:ring-2 fw:focus-visible:ring-brand-500 fw:focus-visible:ring-offset-1"
+                    className="flexa-wishlist-for-woocommerce-control fw:w-full fw:rounded-md fw:border fw:border-slate-300 fw:bg-white fw:px-3 fw:py-2 fw:font-mono fw:text-sm fw:shadow-sm fw:transition-colors fw:placeholder:text-slate-400 fw:focus-visible:outline-none fw:focus-visible:ring-2 fw:focus-visible:ring-brand-500 fw:focus-visible:ring-offset-1"
                 />
             </div>
         </div>

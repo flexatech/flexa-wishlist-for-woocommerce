@@ -15,7 +15,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
         <select
             ref={ref}
             className={cn(
-                "flexa-woocommerce-wishlist-control",
+                "flexa-wishlist-for-woocommerce-control",
                 "fw:h-9 fw:rounded-md fw:border fw:border-slate-300 fw:bg-white fw:px-2 fw:text-sm fw:text-slate-900 fw:shadow-sm fw:transition-colors",
                 "fw:focus-visible:outline-none fw:focus-visible:ring-2 fw:focus-visible:ring-brand-500 fw:focus-visible:ring-offset-1",
                 "fw:disabled:cursor-not-allowed fw:disabled:opacity-60",

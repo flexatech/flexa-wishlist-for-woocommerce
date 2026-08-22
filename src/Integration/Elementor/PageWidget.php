@@ -20,7 +20,7 @@ final class PageWidget extends Widget_Base {
 	}
 
 	public function get_title(): string {
-		return __( 'Wishlist', 'flexa-woocommerce-wishlist' );
+		return __( 'Wishlist', 'flexa-wishlist-for-woocommerce' );
 	}
 
 	public function get_icon(): string {
@@ -44,19 +44,19 @@ final class PageWidget extends Widget_Base {
 	protected function register_controls(): void {
 		$this->start_controls_section(
 			'section_content',
-			[ 'label' => __( 'Wishlist', 'flexa-woocommerce-wishlist' ) ]
+			[ 'label' => __( 'Wishlist', 'flexa-wishlist-for-woocommerce' ) ]
 		);
 
 		$this->add_control(
 			'layout',
 			[
-				'label'   => __( 'Layout', 'flexa-woocommerce-wishlist' ),
+				'label'   => __( 'Layout', 'flexa-wishlist-for-woocommerce' ),
 				'type'    => Controls_Manager::SELECT,
 				'default' => '',
 				'options' => [
-					''     => __( 'Site default', 'flexa-woocommerce-wishlist' ),
-					'grid' => __( 'Grid', 'flexa-woocommerce-wishlist' ),
-					'list' => __( 'List', 'flexa-woocommerce-wishlist' ),
+					''     => __( 'Site default', 'flexa-wishlist-for-woocommerce' ),
+					'grid' => __( 'Grid', 'flexa-wishlist-for-woocommerce' ),
+					'list' => __( 'List', 'flexa-wishlist-for-woocommerce' ),
 				],
 			]
 		);

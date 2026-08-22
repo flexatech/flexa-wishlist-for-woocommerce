@@ -58,14 +58,14 @@ final class ShareController extends BaseRestController {
 
 	public function create_link( WP_REST_Request $request ): WP_REST_Response|WP_Error {
 		if ( ! (bool) Settings::get( 'sharing', 'enabled' ) ) {
-			return $this->fail( 'sharing_disabled', __( 'Sharing is disabled.', 'flexa-woocommerce-wishlist' ), 403 );
+			return $this->fail( 'sharing_disabled', __( 'Sharing is disabled.', 'flexa-wishlist-for-woocommerce' ), 403 );
 		}
 
 		$owner = $this->owner_write();
 		$lists = new WishlistRepository();
 		$list  = $lists->find( (int) $request->get_param( 'id' ) );
 		if ( ! $list instanceof Wishlist || ! $lists->owns( $list, $owner ) ) {
-			return $this->fail( 'not_found', __( 'Wishlist not found.', 'flexa-woocommerce-wishlist' ), 404 );
+			return $this->fail( 'not_found', __( 'Wishlist not found.', 'flexa-wishlist-for-woocommerce' ), 404 );
 		}
 
 		$slug = $this->unique_slug( $lists );
@@ -83,7 +83,7 @@ final class ShareController extends BaseRestController {
 				'slug' => $slug,
 				'url'  => ShareRoute::url_for( $slug ),
 			],
-			__( 'Share link ready.', 'flexa-woocommerce-wishlist' )
+			__( 'Share link ready.', 'flexa-wishlist-for-woocommerce' )
 		);
 	}
 
@@ -95,7 +95,7 @@ final class ShareController extends BaseRestController {
 		// Private (or missing) lists return a neutral not-available — never
 		// disclose existence (§18.5).
 		if ( ! $list instanceof Wishlist || 'private' === $list->visibility ) {
-			return $this->fail( 'unavailable', __( "This wishlist isn't available.", 'flexa-woocommerce-wishlist' ), 404 );
+			return $this->fail( 'unavailable', __( "This wishlist isn't available.", 'flexa-wishlist-for-woocommerce' ), 404 );
 		}
 
 		$service = new WishlistService();
@@ -118,14 +118,14 @@ final class ShareController extends BaseRestController {
 		$lists = new WishlistRepository();
 		$list  = $lists->find_by_slug( $slug );
 		if ( ! $list instanceof Wishlist || 'private' === $list->visibility ) {
-			return $this->fail( 'unavailable', __( "This wishlist isn't available.", 'flexa-woocommerce-wishlist' ), 404 );
+			return $this->fail( 'unavailable', __( "This wishlist isn't available.", 'flexa-wishlist-for-woocommerce' ), 404 );
 		}
 
 		$owner   = $this->owner_write();
 		$service = new WishlistService();
 		$target  = $service->resolve_target_list( $owner );
 		if ( null === $target ) {
-			return $this->fail( 'save_failed', __( 'Could not save these items.', 'flexa-woocommerce-wishlist' ), 400 );
+			return $this->fail( 'save_failed', __( 'Could not save these items.', 'flexa-wishlist-for-woocommerce' ), 400 );
 		}
 
 		$added = 0;
@@ -153,7 +153,7 @@ final class ShareController extends BaseRestController {
 				'state' => $service->state( $owner ),
 			],
 			/* translators: %d: number of items added. */
-			sprintf( _n( '%d item saved to your wishlist.', '%d items saved to your wishlist.', $added, 'flexa-woocommerce-wishlist' ), $added )
+			sprintf( _n( '%d item saved to your wishlist.', '%d items saved to your wishlist.', $added, 'flexa-wishlist-for-woocommerce' ), $added )
 		);
 	}
 
@@ -169,7 +169,7 @@ final class ShareController extends BaseRestController {
 
 	private function owner_display_name( Wishlist $list ): string {
 		if ( ! (bool) Settings::get( 'sharing', 'show_owner_name' ) ) {
-			return __( 'A customer', 'flexa-woocommerce-wishlist' );
+			return __( 'A customer', 'flexa-wishlist-for-woocommerce' );
 		}
 		if ( $list->owner_user_id > 0 ) {
 			$user = get_userdata( $list->owner_user_id );
@@ -177,6 +177,6 @@ final class ShareController extends BaseRestController {
 				return $user->display_name;
 			}
 		}
-		return __( 'A customer', 'flexa-woocommerce-wishlist' );
+		return __( 'A customer', 'flexa-wishlist-for-woocommerce' );
 	}
 }

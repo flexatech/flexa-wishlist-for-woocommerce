@@ -3,7 +3,7 @@
 	<description>Coding standards for Flexa Wishlist for WooCommerce.</description>
 
 	<!-- What to scan (shipped PHP only; JS/CSS and the build output are elsewhere). -->
-	<file>flexa-woocommerce-wishlist.php</file>
+	<file>flexa-wishlist-for-woocommerce.php</file>
 	<file>uninstall.php</file>
 	<file>src</file>
 
@@ -53,7 +53,7 @@
 	<rule ref="WordPress.WP.I18n">
 		<properties>
 			<property name="text_domain" type="array">
-				<element value="flexa-woocommerce-wishlist"/>
+				<element value="flexa-wishlist-for-woocommerce"/>
 			</property>
 		</properties>
 	</rule>

@@ -6,7 +6,7 @@ Phased, core-first build tracked against `docs/PRODUCT_SPEC.md`. Naming binding:
 ✅ done · 🚧 in progress · ⬜ not started
 
 ## Phase 1 — PHP foundation (Agent A) ✅
-- ✅ Bootstrap `flexa-woocommerce-wishlist.php` (constants, dual-tree autoloader, WC guard, HPOS declare, activation/deactivation).
+- ✅ Bootstrap `flexa-wishlist-for-woocommerce.php` (constants, dual-tree autoloader, WC guard, HPOS declare, activation/deactivation).
 - ✅ `Plugin` boot orchestration (Free then Pro by file presence).
 - ✅ `Support\Settings` typed nested schema (~28 controls) with defaults / coerce / partial-merge sanitize.
 - ✅ `Support\SingletonTrait`, `Support\Capabilities` (view=`manage_woocommerce`, settings=`manage_options`), `Support\Resetter`, `Support\Scheduler`.

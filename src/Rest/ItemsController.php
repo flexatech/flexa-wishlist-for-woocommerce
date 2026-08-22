@@ -115,7 +115,7 @@ final class ItemsController extends BaseRestController {
 		);
 
 		if ( null === $result ) {
-			return $this->fail( 'add_failed', __( 'That product could not be saved.', 'flexa-woocommerce-wishlist' ), 400 );
+			return $this->fail( 'add_failed', __( 'That product could not be saved.', 'flexa-wishlist-for-woocommerce' ), 400 );
 		}
 
 		return $this->success(
@@ -123,7 +123,7 @@ final class ItemsController extends BaseRestController {
 				'item'  => ( new ProductHydrator() )->hydrate( $result['item'] ),
 				'state' => $service->state( $owner ),
 			],
-			$result['created'] ? __( 'Saved to your wishlist.', 'flexa-woocommerce-wishlist' ) : ''
+			$result['created'] ? __( 'Saved to your wishlist.', 'flexa-wishlist-for-woocommerce' ) : ''
 		);
 	}
 
@@ -164,7 +164,7 @@ final class ItemsController extends BaseRestController {
 
 		$result = $service->add( $owner, $product_id, $variation_id, (int) $request->get_param( 'quantity' ), $list_id );
 		if ( null === $result ) {
-			return $this->fail( 'toggle_failed', __( 'That product could not be saved.', 'flexa-woocommerce-wishlist' ), 400 );
+			return $this->fail( 'toggle_failed', __( 'That product could not be saved.', 'flexa-wishlist-for-woocommerce' ), 400 );
 		}
 
 		return $this->success(
@@ -174,7 +174,7 @@ final class ItemsController extends BaseRestController {
 				'list'  => $result['list']->to_array(),
 				'state' => $service->state( $owner ),
 			],
-			__( 'Saved to your wishlist.', 'flexa-woocommerce-wishlist' )
+			__( 'Saved to your wishlist.', 'flexa-wishlist-for-woocommerce' )
 		);
 	}
 
@@ -185,7 +185,7 @@ final class ItemsController extends BaseRestController {
 
 		$item = $items->find( (int) $request->get_param( 'id' ) );
 		if ( ! $item instanceof Item || ! $items->owned_by( $item, $lists->ids_for_owner( $owner ) ) ) {
-			return $this->fail( 'not_found', __( 'Item not found.', 'flexa-woocommerce-wishlist' ), 404 );
+			return $this->fail( 'not_found', __( 'Item not found.', 'flexa-wishlist-for-woocommerce' ), 404 );
 		}
 
 		$restore_row = [
@@ -208,7 +208,7 @@ final class ItemsController extends BaseRestController {
 				'restore' => $restore_row,
 				'state'   => ( new WishlistService() )->state( $owner ),
 			],
-			__( 'Removed from your wishlist.', 'flexa-woocommerce-wishlist' )
+			__( 'Removed from your wishlist.', 'flexa-wishlist-for-woocommerce' )
 		);
 	}
 
@@ -224,7 +224,7 @@ final class ItemsController extends BaseRestController {
 			// The original list is gone; fall back to the owner's default.
 			$list = ( new WishlistService() )->resolve_target_list( $owner );
 			if ( null === $list ) {
-				return $this->fail( 'restore_failed', __( 'Could not restore the item.', 'flexa-woocommerce-wishlist' ), 400 );
+				return $this->fail( 'restore_failed', __( 'Could not restore the item.', 'flexa-wishlist-for-woocommerce' ), 400 );
 			}
 		}
 
@@ -252,7 +252,7 @@ final class ItemsController extends BaseRestController {
 
 		$item = $items->find( (int) $request->get_param( 'id' ) );
 		if ( ! $item instanceof Item || ! $items->owned_by( $item, $lists->ids_for_owner( $owner ) ) ) {
-			return $this->fail( 'not_found', __( 'Item not found.', 'flexa-woocommerce-wishlist' ), 404 );
+			return $this->fail( 'not_found', __( 'Item not found.', 'flexa-wishlist-for-woocommerce' ), 404 );
 		}
 
 		$body = (array) $request->get_json_params();

@@ -20,7 +20,7 @@ final class CounterWidget extends Widget_Base {
 	}
 
 	public function get_title(): string {
-		return __( 'Wishlist Counter', 'flexa-woocommerce-wishlist' );
+		return __( 'Wishlist Counter', 'flexa-wishlist-for-woocommerce' );
 	}
 
 	public function get_icon(): string {

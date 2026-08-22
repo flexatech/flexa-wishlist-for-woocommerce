@@ -110,7 +110,7 @@ final class WishlistRepository {
 			[
 				'owner_user_id'    => $owner->user_id,
 				'guest_token_hash' => $owner->guest_hash,
-				'name'             => '' !== $name ? $name : __( 'Favorites', 'flexa-woocommerce-wishlist' ),
+				'name'             => '' !== $name ? $name : __( 'Favorites', 'flexa-wishlist-for-woocommerce' ),
 				'is_default'       => true,
 			]
 		);
@@ -130,7 +130,7 @@ final class WishlistRepository {
 			[
 				'owner_user_id'    => (int) ( $data['owner_user_id'] ?? 0 ),
 				'guest_token_hash' => $data['guest_token_hash'] ?? null,
-				'name'             => (string) ( $data['name'] ?? __( 'Favorites', 'flexa-woocommerce-wishlist' ) ),
+				'name'             => (string) ( $data['name'] ?? __( 'Favorites', 'flexa-wishlist-for-woocommerce' ) ),
 				'is_default'       => ! empty( $data['is_default'] ) ? 1 : 0,
 				'visibility'       => (string) ( $data['visibility'] ?? 'private' ),
 				'share_slug'       => $data['share_slug'] ?? null,

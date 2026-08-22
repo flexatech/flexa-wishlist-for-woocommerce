@@ -36,8 +36,8 @@
 
 	blocks.registerBlockType('flexa-wishlist/page', {
 		apiVersion: 2,
-		title: __('Wishlist', 'flexa-woocommerce-wishlist'),
-		description: __('The full wishlist page.', 'flexa-woocommerce-wishlist'),
+		title: __('Wishlist', 'flexa-wishlist-for-woocommerce'),
+		description: __('The full wishlist page.', 'flexa-wishlist-for-woocommerce'),
 		category: 'woocommerce',
 		icon: icon,
 		attributes: { layout: { type: 'string', default: '' } },
@@ -51,14 +51,14 @@
 					{},
 					el(
 						PanelBody,
-						{ title: __('Layout', 'flexa-woocommerce-wishlist'), initialOpen: true },
+						{ title: __('Layout', 'flexa-wishlist-for-woocommerce'), initialOpen: true },
 						el(SelectControl, {
-							label: __('Layout', 'flexa-woocommerce-wishlist'),
+							label: __('Layout', 'flexa-wishlist-for-woocommerce'),
 							value: props.attributes.layout,
 							options: [
-								{ label: __('Site default', 'flexa-woocommerce-wishlist'), value: '' },
-								{ label: __('Grid', 'flexa-woocommerce-wishlist'), value: 'grid' },
-								{ label: __('List', 'flexa-woocommerce-wishlist'), value: 'list' }
+								{ label: __('Site default', 'flexa-wishlist-for-woocommerce'), value: '' },
+								{ label: __('Grid', 'flexa-wishlist-for-woocommerce'), value: 'grid' },
+								{ label: __('List', 'flexa-wishlist-for-woocommerce'), value: 'list' }
 							],
 							onChange: function (v) { props.setAttributes({ layout: v }); }
 						})
@@ -77,8 +77,8 @@
 
 	blocks.registerBlockType('flexa-wishlist/button', {
 		apiVersion: 2,
-		title: __('Wishlist Button', 'flexa-woocommerce-wishlist'),
-		description: __('A save-to-wishlist toggle for a product.', 'flexa-woocommerce-wishlist'),
+		title: __('Wishlist Button', 'flexa-wishlist-for-woocommerce'),
+		description: __('A save-to-wishlist toggle for a product.', 'flexa-wishlist-for-woocommerce'),
 		category: 'woocommerce',
 		icon: icon,
 		attributes: { productId: { type: 'number', default: 0 } },
@@ -92,11 +92,11 @@
 					{},
 					el(
 						PanelBody,
-						{ title: __('Product', 'flexa-woocommerce-wishlist'), initialOpen: true },
+						{ title: __('Product', 'flexa-wishlist-for-woocommerce'), initialOpen: true },
 						el(TextControl, {
 							type: 'number',
-							label: __('Product ID', 'flexa-woocommerce-wishlist'),
-							help: __('Leave 0 to use the current product.', 'flexa-woocommerce-wishlist'),
+							label: __('Product ID', 'flexa-wishlist-for-woocommerce'),
+							help: __('Leave 0 to use the current product.', 'flexa-wishlist-for-woocommerce'),
 							value: props.attributes.productId || 0,
 							onChange: function (v) { props.setAttributes({ productId: parseInt(v, 10) || 0 }); }
 						})
@@ -106,10 +106,10 @@
 					Placeholder,
 					{
 						icon: icon,
-						label: __('Wishlist Button', 'flexa-woocommerce-wishlist'),
+						label: __('Wishlist Button', 'flexa-wishlist-for-woocommerce'),
 						instructions: props.attributes.productId
-							? __('Shows the toggle for the selected product on the front end.', 'flexa-woocommerce-wishlist')
-							: __('Shows the save-to-wishlist toggle for the current product on the front end.', 'flexa-woocommerce-wishlist')
+							? __('Shows the toggle for the selected product on the front end.', 'flexa-wishlist-for-woocommerce')
+							: __('Shows the save-to-wishlist toggle for the current product on the front end.', 'flexa-wishlist-for-woocommerce')
 					}
 				)
 			);
@@ -121,8 +121,8 @@
 
 	blocks.registerBlockType('flexa-wishlist/counter', {
 		apiVersion: 2,
-		title: __('Wishlist Counter', 'flexa-woocommerce-wishlist'),
-		description: __('A link to the wishlist with a saved-count badge.', 'flexa-woocommerce-wishlist'),
+		title: __('Wishlist Counter', 'flexa-wishlist-for-woocommerce'),
+		description: __('A link to the wishlist with a saved-count badge.', 'flexa-wishlist-for-woocommerce'),
 		category: 'woocommerce',
 		icon: icon,
 		supports: { html: false },

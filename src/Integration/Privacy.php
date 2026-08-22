@@ -32,7 +32,7 @@ final class Privacy {
 	 */
 	public function register_exporter( array $exporters ): array {
 		$exporters['flexa-wishlist'] = [
-			'exporter_friendly_name' => __( 'Wishlists', 'flexa-woocommerce-wishlist' ),
+			'exporter_friendly_name' => __( 'Wishlists', 'flexa-wishlist-for-woocommerce' ),
 			'callback'               => [ $this, 'export' ],
 		];
 		return $exporters;
@@ -44,7 +44,7 @@ final class Privacy {
 	 */
 	public function register_eraser( array $erasers ): array {
 		$erasers['flexa-wishlist'] = [
-			'eraser_friendly_name' => __( 'Wishlists', 'flexa-woocommerce-wishlist' ),
+			'eraser_friendly_name' => __( 'Wishlists', 'flexa-wishlist-for-woocommerce' ),
 			'callback'             => [ $this, 'erase' ],
 		];
 		return $erasers;
@@ -68,19 +68,19 @@ final class Privacy {
 					$name     = isset( $hydrated['product']['name'] ) ? (string) $hydrated['product']['name'] : (string) ( $hydrated['name'] ?? '' );
 					$data[]   = [
 						'group_id'    => 'flexa-wishlist',
-						'group_label' => __( 'Wishlists', 'flexa-woocommerce-wishlist' ),
+						'group_label' => __( 'Wishlists', 'flexa-wishlist-for-woocommerce' ),
 						'item_id'     => 'flexa-wl-item-' . $item->id,
 						'data'        => [
 							[
-								'name'  => __( 'List', 'flexa-woocommerce-wishlist' ),
+								'name'  => __( 'List', 'flexa-wishlist-for-woocommerce' ),
 								'value' => $list->name,
 							],
 							[
-								'name'  => __( 'Product', 'flexa-woocommerce-wishlist' ),
+								'name'  => __( 'Product', 'flexa-wishlist-for-woocommerce' ),
 								'value' => $name,
 							],
 							[
-								'name'  => __( 'Saved on', 'flexa-woocommerce-wishlist' ),
+								'name'  => __( 'Saved on', 'flexa-wishlist-for-woocommerce' ),
 								'value' => $item->date_added,
 							],
 						],

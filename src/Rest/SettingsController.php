@@ -63,12 +63,12 @@ final class SettingsController extends BaseRestController {
 
 		do_action( 'flexa_wishlist/settings/updated', $new, $old );
 
-		return $this->success( [ 'settings' => $new ], __( 'Settings saved.', 'flexa-woocommerce-wishlist' ) );
+		return $this->success( [ 'settings' => $new ], __( 'Settings saved.', 'flexa-wishlist-for-woocommerce' ) );
 	}
 
 	public function reset( WP_REST_Request $request ): WP_REST_Response {
 		unset( $request );
 		$result = Resetter::reset_all();
-		return $this->success( $result, __( 'All wishlist data was removed.', 'flexa-woocommerce-wishlist' ) );
+		return $this->success( $result, __( 'All wishlist data was removed.', 'flexa-wishlist-for-woocommerce' ) );
 	}
 }

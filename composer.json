@@ -1,5 +1,5 @@
 {
-    "name": "flexatech/flexa-woocommerce-wishlist",
+    "name": "flexatech/flexa-wishlist-for-woocommerce",
     "description": "A mobile-first, cache-safe wishlist for WooCommerce.",
     "type": "wordpress-plugin",
     "license": "GPL-2.0-or-later",

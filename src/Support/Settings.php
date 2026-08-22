@@ -43,7 +43,7 @@ final class Settings {
 					'enabled'           => true,
 					'guest_wishlists'   => true,
 					'retention_days'    => 30,
-					'default_list_name' => __( 'Favorites', 'flexa-woocommerce-wishlist' ),
+					'default_list_name' => __( 'Favorites', 'flexa-wishlist-for-woocommerce' ),
 					'page_id'           => 0,
 				],
 				'appearance'    => [
@@ -58,8 +58,8 @@ final class Settings {
 				'button'        => [
 					'position_loop'   => 'on_image',
 					'position_single' => 'after_add_to_cart',
-					'label_add'       => __( 'Add to Wishlist', 'flexa-woocommerce-wishlist' ),
-					'label_added'     => __( 'In Wishlist', 'flexa-woocommerce-wishlist' ),
+					'label_add'       => __( 'Add to Wishlist', 'flexa-wishlist-for-woocommerce' ),
+					'label_added'     => __( 'In Wishlist', 'flexa-wishlist-for-woocommerce' ),
 				],
 				'page'          => [
 					'layout'      => 'grid',

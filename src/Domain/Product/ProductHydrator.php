@@ -38,7 +38,7 @@ final class ProductHydrator {
 		if ( ! $product instanceof \WC_Product ) {
 			// Ghost: product deleted/unavailable. Only a Remove action applies.
 			$base['ghost']   = true;
-			$base['name']    = __( 'This product is no longer available', 'flexa-woocommerce-wishlist' );
+			$base['name']    = __( 'This product is no longer available', 'flexa-wishlist-for-woocommerce' );
 			$base['product'] = null;
 			return $base;
 		}

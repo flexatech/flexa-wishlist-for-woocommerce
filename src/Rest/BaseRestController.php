@@ -57,7 +57,7 @@ abstract class BaseRestController {
 	public function storefront_write_permission( WP_REST_Request $request ): bool|WP_Error {
 		$nonce = (string) ( $request->get_header( 'X-WP-Nonce' ) ?: $request->get_param( '_wpnonce' ) );
 		if ( '' === $nonce || ! wp_verify_nonce( $nonce, 'wp_rest' ) ) {
-			return $this->fail( 'bad_nonce', __( 'Your session expired. Please refresh and try again.', 'flexa-woocommerce-wishlist' ), 403 );
+			return $this->fail( 'bad_nonce', __( 'Your session expired. Please refresh and try again.', 'flexa-wishlist-for-woocommerce' ), 403 );
 		}
 		return true;
 	}
@@ -67,7 +67,7 @@ abstract class BaseRestController {
 	public function manage_permission( WP_REST_Request $request ): bool|WP_Error {
 		unset( $request );
 		if ( ! Capabilities::can_manage() ) {
-			return $this->fail( 'forbidden', __( 'You do not have permission to view this.', 'flexa-woocommerce-wishlist' ), rest_authorization_required_code() );
+			return $this->fail( 'forbidden', __( 'You do not have permission to view this.', 'flexa-wishlist-for-woocommerce' ), rest_authorization_required_code() );
 		}
 		return true;
 	}
@@ -75,7 +75,7 @@ abstract class BaseRestController {
 	public function settings_permission( WP_REST_Request $request ): bool|WP_Error {
 		unset( $request );
 		if ( ! Capabilities::can_manage_settings() ) {
-			return $this->fail( 'forbidden', __( 'You do not have permission to change settings.', 'flexa-woocommerce-wishlist' ), rest_authorization_required_code() );
+			return $this->fail( 'forbidden', __( 'You do not have permission to change settings.', 'flexa-wishlist-for-woocommerce' ), rest_authorization_required_code() );
 		}
 		return true;
 	}

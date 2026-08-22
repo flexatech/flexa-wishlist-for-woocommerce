@@ -81,7 +81,7 @@ final class ListsController extends BaseRestController {
 
 		$list = $lists->find( (int) $request->get_param( 'id' ) );
 		if ( ! $list instanceof Wishlist || ! $lists->owns( $list, $owner ) ) {
-			return $this->fail( 'not_found', __( 'Wishlist not found.', 'flexa-woocommerce-wishlist' ), 404 );
+			return $this->fail( 'not_found', __( 'Wishlist not found.', 'flexa-wishlist-for-woocommerce' ), 404 );
 		}
 
 		$per_page = (int) Settings::get( 'page', 'per_page' );
@@ -113,7 +113,7 @@ final class ListsController extends BaseRestController {
 		$owner = $this->owner_write();
 		$name  = sanitize_text_field( (string) $request->get_param( 'name' ) );
 		if ( '' === $name ) {
-			return $this->fail( 'invalid_name', __( 'Please give the list a name.', 'flexa-woocommerce-wishlist' ), 400 );
+			return $this->fail( 'invalid_name', __( 'Please give the list a name.', 'flexa-wishlist-for-woocommerce' ), 400 );
 		}
 
 		$lists = new WishlistRepository();
@@ -128,7 +128,7 @@ final class ListsController extends BaseRestController {
 		);
 
 		$list = $lists->find( $id );
-		return $this->success( [ 'list' => $list?->to_array() ], __( 'List created.', 'flexa-woocommerce-wishlist' ) );
+		return $this->success( [ 'list' => $list?->to_array() ], __( 'List created.', 'flexa-wishlist-for-woocommerce' ) );
 	}
 
 	public function update( WP_REST_Request $request ): WP_REST_Response|WP_Error {
@@ -140,7 +140,7 @@ final class ListsController extends BaseRestController {
 		$lists = new WishlistRepository();
 		$list  = $lists->find( (int) $request->get_param( 'id' ) );
 		if ( ! $list instanceof Wishlist || ! $lists->owns( $list, $owner ) ) {
-			return $this->fail( 'not_found', __( 'Wishlist not found.', 'flexa-woocommerce-wishlist' ), 404 );
+			return $this->fail( 'not_found', __( 'Wishlist not found.', 'flexa-wishlist-for-woocommerce' ), 404 );
 		}
 
 		$body    = (array) $request->get_json_params();
@@ -170,10 +170,10 @@ final class ListsController extends BaseRestController {
 		$lists = new WishlistRepository();
 		$list  = $lists->find( (int) $request->get_param( 'id' ) );
 		if ( ! $list instanceof Wishlist || ! $lists->owns( $list, $owner ) ) {
-			return $this->fail( 'not_found', __( 'Wishlist not found.', 'flexa-woocommerce-wishlist' ), 404 );
+			return $this->fail( 'not_found', __( 'Wishlist not found.', 'flexa-wishlist-for-woocommerce' ), 404 );
 		}
 		if ( $list->is_default ) {
-			return $this->fail( 'default_protected', __( 'The default list cannot be deleted.', 'flexa-woocommerce-wishlist' ), 400 );
+			return $this->fail( 'default_protected', __( 'The default list cannot be deleted.', 'flexa-wishlist-for-woocommerce' ), 400 );
 		}
 
 		$service = new WishlistService();
@@ -189,7 +189,7 @@ final class ListsController extends BaseRestController {
 		$service->items()->delete_for_list( $list->id );
 		$lists->delete( $list->id );
 
-		return $this->success( [ 'state' => $service->state( $owner ) ], __( 'List deleted.', 'flexa-woocommerce-wishlist' ) );
+		return $this->success( [ 'state' => $service->state( $owner ) ], __( 'List deleted.', 'flexa-wishlist-for-woocommerce' ) );
 	}
 
 	private function pro_enabled(): bool {
@@ -197,6 +197,6 @@ final class ListsController extends BaseRestController {
 	}
 
 	private function pro_required(): WP_Error {
-		return $this->fail( 'pro_required', __( 'Multiple wishlists are a Pro feature.', 'flexa-woocommerce-wishlist' ), 403 );
+		return $this->fail( 'pro_required', __( 'Multiple wishlists are a Pro feature.', 'flexa-wishlist-for-woocommerce' ), 403 );
 	}
 }
