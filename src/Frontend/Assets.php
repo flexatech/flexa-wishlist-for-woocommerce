@@ -86,6 +86,11 @@ final class Assets {
 		wp_enqueue_style( self::STYLE );
 		wp_enqueue_script( self::SCRIPT );
 
+		// reason: NOT arbitrary/user CSS. preset_css() emits only a fixed
+		// `:root{--fw-accent;--fw-radius}` rule; every value is derived from
+		// validated settings (accent_color is hex-validated, radius is a
+		// closed map lookup, preset is an enum). There is no custom_css/JS
+		// escape hatch, so no raw markup can reach the page.
 		wp_add_inline_style( self::STYLE, $this->preset_css() );
 
 		wp_localize_script( self::SCRIPT, 'flexaWishlistFront', $this->config() );

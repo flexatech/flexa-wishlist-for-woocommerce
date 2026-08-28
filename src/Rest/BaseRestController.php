@@ -50,6 +50,12 @@ abstract class BaseRestController {
 	/** Reads are public (respect visibility inside the handler). */
 	public function public_permission( WP_REST_Request $request ): bool {
 		unset( $request );
+		// reason: intentionally public. These routes only READ data that is
+		// already public (a shared wishlist's own items, storefront state);
+		// per-item/per-list visibility is enforced inside each handler, not at
+		// the permission layer. No user data is exposed or mutated here, so a
+		// nonce/capability gate would add nothing. Not equivalent to
+		// __return_true on a write or private-data route.
 		return true;
 	}
 
