@@ -4,7 +4,7 @@ Tags: woocommerce, wishlist, wishlists, save for later, ecommerce
 Requires at least: 6.2
 Tested up to: 7.1
 Requires PHP: 8.2
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -93,10 +93,18 @@ The admin app is built with pnpm and Vite:
 
 == Changelog ==
 
+= 1.0.1 =
+* Removed all Pro/licensing gates — multiple wishlists and every feature are now free.
+* Security: verify ownership on item toggle to prevent cross-account removal (IDOR).
+* Removed the custom CSS field; appearance is driven entirely by validated presets.
+
 = 1.0.0 =
 * Initial release.
 
 == Upgrade Notice ==
+
+= 1.0.1 =
+Security and compliance fixes: multi-wishlist unlocked for free, item-toggle ownership check, custom CSS removed.
 
 = 1.0.0 =
 Initial release of Flexa Wishlist for WooCommerce.
