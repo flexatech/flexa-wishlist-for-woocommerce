@@ -10,9 +10,7 @@ defined( 'ABSPATH' ) || exit;
 
 /**
  * Boots every service in dependency order. Each subsystem self-gates (class
- * existence + its own settings toggle) so partial builds and the Free/Pro split
- * degrade gracefully. Pro boots last, by file presence, gated on the licence
- * filter — never a Free-side flag guarding shipped-but-disabled code.
+ * existence + its own settings toggle) so partial builds degrade gracefully.
  */
 final class Plugin {
 	use SingletonTrait;
@@ -58,23 +56,6 @@ final class Plugin {
 			Cli\WishlistCommand::register();
 		}
 
-		$this->boot_pro();
-
 		do_action( 'flexa_wishlist/booted', $this );
-	}
-
-	/**
-	 * Boot the Pro layer if its files are present and it reports a valid
-	 * licence. Presence is file-level (src-pro/); the licence gate is the
-	 * `flexa_wishlist/pro/is_licensed` filter (default false in Free).
-	 */
-	private function boot_pro(): void {
-		if ( defined( 'FLEXA_WISHLIST_DISABLE_PRO' ) && \FLEXA_WISHLIST_DISABLE_PRO ) {
-			return;
-		}
-		if ( ! class_exists( \Flexa\WishlistPro\Plugin::class ) ) {
-			return;
-		}
-		\Flexa\WishlistPro\Plugin::instance()->boot();
 	}
 }

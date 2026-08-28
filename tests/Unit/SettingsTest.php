@@ -20,7 +20,7 @@ final class SettingsTest extends TestCase {
 	public function test_defaults_expose_every_group(): void {
 		$defaults = Settings::defaults();
 
-		foreach ( [ 'general', 'appearance', 'button', 'page', 'sharing', 'counter', 'notifications', 'analytics', 'advanced' ] as $group ) {
+		foreach ( [ 'general', 'appearance', 'button', 'page', 'sharing', 'counter', 'advanced' ] as $group ) {
 			$this->assertArrayHasKey( $group, $defaults );
 		}
 	}
@@ -105,19 +105,18 @@ final class SettingsTest extends TestCase {
 		$this->assertSame( '', $cleared['appearance']['accent_color'] );
 	}
 
-	public function test_custom_css_sanitizer_strips_dangerous_sequences(): void {
+	public function test_arbitrary_css_is_never_persisted(): void {
+		// The custom-CSS escape hatch was removed for wp.org compliance; any
+		// stray custom_css in a payload must be dropped, never stored.
 		$merged = Settings::sanitize_merge(
 			[
 				'appearance' => [
-					'custom_css' => '.x{color:red} </style><script>alert(1)</script> a{background:expression(x)}',
+					'custom_css' => '.x{color:red} </style><script>alert(1)</script>',
 				],
 			]
 		);
 
-		$css = $merged['appearance']['custom_css'];
-		$this->assertStringNotContainsString( '</style', $css );
-		$this->assertStringNotContainsString( '<script', $css );
-		$this->assertStringNotContainsString( 'expression(', $css );
+		$this->assertArrayNotHasKey( 'custom_css', $merged['appearance'] );
 	}
 
 	public function test_sharing_channels_intersect_allowed_set(): void {

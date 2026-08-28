@@ -15,7 +15,6 @@ defined( 'ABSPATH' ) || exit;
 final class Deactivator {
 	public static function deactivate(): void {
 		wp_clear_scheduled_hook( 'flexa_wishlist/cron/guest_cleanup' );
-		wp_clear_scheduled_hook( 'flexa_wishlist/cron/price_scan' );
 
 		flush_rewrite_rules();
 	}

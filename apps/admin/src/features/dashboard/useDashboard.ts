@@ -17,7 +17,6 @@ export interface TopProduct {
 export interface DashboardData {
     totals: DashboardTotals;
     topProducts: TopProduct[];
-    proEnabled: boolean;
 }
 
 const DASHBOARD_KEY = ["dashboard"] as const;

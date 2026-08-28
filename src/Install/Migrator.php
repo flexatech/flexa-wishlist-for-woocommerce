@@ -8,17 +8,14 @@ defined( 'ABSPATH' ) || exit;
 
 /**
  * Versioned schema migrator. Runs on activation and on admin_init via
- * maybe_upgrade(). Owns the four custom tables described in §23.2:
- * lists, items, stock subscriptions (Pro), and analytics aggregates (Pro).
+ * maybe_upgrade(). Owns the two custom tables: lists and items.
  */
 final class Migrator {
 	public const DB_VERSION     = '1.0.0';
 	public const VERSION_OPTION = 'flexa_wishlist_db_version';
 
-	public const LIST_TABLE      = 'flexa_wl_lists';
-	public const ITEM_TABLE      = 'flexa_wl_items';
-	public const STOCK_SUB_TABLE = 'flexa_wl_stock_subs';
-	public const ANALYTICS_TABLE = 'flexa_wl_analytics';
+	public const LIST_TABLE = 'flexa_wl_lists';
+	public const ITEM_TABLE = 'flexa_wl_items';
 
 	public static function maybe_upgrade(): void {
 		$installed = (string) get_option( self::VERSION_OPTION, '' );
@@ -36,8 +33,6 @@ final class Migrator {
 		$charset_collate = $wpdb->get_charset_collate();
 		$lists           = $wpdb->prefix . self::LIST_TABLE;
 		$items           = $wpdb->prefix . self::ITEM_TABLE;
-		$subs            = $wpdb->prefix . self::STOCK_SUB_TABLE;
-		$analytics       = $wpdb->prefix . self::ANALYTICS_TABLE;
 
 		// A wishlist is owned by exactly one of: a user (owner_user_id > 0) or a
 		// guest (guest_token_hash set). share_slug is unique when present.
@@ -76,39 +71,8 @@ final class Migrator {
 			KEY product_idx (product_id)
 		) {$charset_collate};";
 
-		// Back-in-stock subscriptions (Pro). One active row per
-		// (email, product, variation).
-		$subs_sql = "CREATE TABLE {$subs} (
-			id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-			email VARCHAR(190) NOT NULL DEFAULT '',
-			user_id BIGINT UNSIGNED NOT NULL DEFAULT 0,
-			product_id BIGINT UNSIGNED NOT NULL,
-			variation_id BIGINT UNSIGNED NOT NULL DEFAULT 0,
-			status VARCHAR(20) NOT NULL DEFAULT 'active',
-			consent_at DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
-			created_at DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
-			notified_at DATETIME DEFAULT NULL,
-			PRIMARY KEY  (id),
-			KEY email_product_idx (email, product_id, variation_id),
-			KEY product_status_idx (product_id, status)
-		) {$charset_collate};";
-
-		// Daily analytics aggregates (Pro). One row per (date, product).
-		$analytics_sql = "CREATE TABLE {$analytics} (
-			stat_date DATE NOT NULL,
-			product_id BIGINT UNSIGNED NOT NULL,
-			adds INT UNSIGNED NOT NULL DEFAULT 0,
-			removes INT UNSIGNED NOT NULL DEFAULT 0,
-			carted INT UNSIGNED NOT NULL DEFAULT 0,
-			purchased INT UNSIGNED NOT NULL DEFAULT 0,
-			PRIMARY KEY  (stat_date, product_id),
-			KEY product_idx (product_id)
-		) {$charset_collate};";
-
 		dbDelta( $lists_sql );
 		dbDelta( $items_sql );
-		dbDelta( $subs_sql );
-		dbDelta( $analytics_sql );
 
 		update_option( self::VERSION_OPTION, self::DB_VERSION, false );
 	}
@@ -121,7 +85,7 @@ final class Migrator {
 		global $wpdb;
 
 		// phpcs:disable WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL
-		foreach ( [ self::ITEM_TABLE, self::LIST_TABLE, self::STOCK_SUB_TABLE, self::ANALYTICS_TABLE ] as $table ) {
+		foreach ( [ self::ITEM_TABLE, self::LIST_TABLE ] as $table ) {
 			$wpdb->query( $wpdb->prepare( 'DROP TABLE IF EXISTS %i', $wpdb->prefix . $table ) );
 		}
 		// phpcs:enable WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL

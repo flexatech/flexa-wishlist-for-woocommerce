@@ -24,7 +24,7 @@ Flexa Wishlist replaces the dated "table of products with social buttons" patter
 * **Accessible & fast** — WCAG 2.2 AA, no color-only state, tight performance budgets.
 * **Developer friendly** — REST API, action/filter hooks, `fw:` DOM events, Gutenberg blocks, shortcodes, and Elementor widgets.
 
-Flexa Wishlist for WooCommerce is a complete, professional single-wishlist product — free.
+Flexa Wishlist for WooCommerce is a complete, professional wishlist product — free.
 
 = Placement =
 
@@ -33,10 +33,6 @@ Everything renders through three shortcodes (also available as Gutenberg blocks 
 * `[flexa_wishlist]` — the full wishlist page.
 * `[flexa_wishlist_button product_id="123"]` — a save button (defaults to the current product in a loop).
 * `[flexa_wishlist_counter]` — a live saved-items count, ideal for the header/menu.
-
-= Pro =
-
-A Pro version is planned with multiple lists, per-list visibility, price-drop and back-in-stock notifications, a wishlist drawer, and merchant analytics.
 
 == Installation ==
 

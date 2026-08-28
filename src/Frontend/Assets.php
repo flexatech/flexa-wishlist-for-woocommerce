@@ -161,13 +161,6 @@ final class Assets {
 			$radius_value
 		);
 
-		$custom = (string) Settings::get( 'appearance', 'custom_css' );
-
-		$css = "/* preset: {$preset} */\n" . $vars;
-		if ( '' !== $custom ) {
-			$css .= "\n" . $custom;
-		}
-
-		return $css;
+		return "/* preset: {$preset} */\n" . $vars;
 	}
 }

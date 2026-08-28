@@ -27,7 +27,7 @@ if ( $flexa_wl_purge ) {
 	delete_option( 'flexa_wishlist_db_version' );
 
 	// phpcs:disable WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL
-	foreach ( [ 'flexa_wl_items', 'flexa_wl_lists', 'flexa_wl_stock_subs', 'flexa_wl_analytics' ] as $flexa_wl_table ) {
+	foreach ( [ 'flexa_wl_items', 'flexa_wl_lists' ] as $flexa_wl_table ) {
 		$wpdb->query( $wpdb->prepare( 'DROP TABLE IF EXISTS %i', $wpdb->prefix . $flexa_wl_table ) );
 	}
 

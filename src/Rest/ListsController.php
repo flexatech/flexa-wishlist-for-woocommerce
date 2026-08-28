@@ -20,11 +20,10 @@ defined( 'ABSPATH' ) || exit;
  * Wishlist (list) endpoints.
  * - GET  /lists            owner's list summaries
  * - GET  /lists/{id}       one list's hydrated, paginated items
- * - POST /lists            create a list (Pro)
- * - PATCH/DELETE /lists/{id}  rename / delete a list (Pro)
+ * - POST /lists            create a list
+ * - PATCH/DELETE /lists/{id}  rename / delete a list
  *
- * Creation, rename and deletion are Pro surfaces (§28–§29): Free ships a single
- * default list. Those routes are gated on `flexa_wishlist/pro/is_licensed`.
+ * Every mutating route validates ownership server-side; ids are never trusted.
  */
 final class ListsController extends BaseRestController {
 	public function register_routes(): void {
@@ -106,10 +105,6 @@ final class ListsController extends BaseRestController {
 	}
 
 	public function create( WP_REST_Request $request ): WP_REST_Response|WP_Error {
-		if ( ! $this->pro_enabled() ) {
-			return $this->pro_required();
-		}
-
 		$owner = $this->owner_write();
 		$name  = sanitize_text_field( (string) $request->get_param( 'name' ) );
 		if ( '' === $name ) {
@@ -132,10 +127,6 @@ final class ListsController extends BaseRestController {
 	}
 
 	public function update( WP_REST_Request $request ): WP_REST_Response|WP_Error {
-		if ( ! $this->pro_enabled() ) {
-			return $this->pro_required();
-		}
-
 		$owner = $this->owner_write();
 		$lists = new WishlistRepository();
 		$list  = $lists->find( (int) $request->get_param( 'id' ) );
@@ -162,10 +153,6 @@ final class ListsController extends BaseRestController {
 	}
 
 	public function destroy( WP_REST_Request $request ): WP_REST_Response|WP_Error {
-		if ( ! $this->pro_enabled() ) {
-			return $this->pro_required();
-		}
-
 		$owner = $this->owner_write();
 		$lists = new WishlistRepository();
 		$list  = $lists->find( (int) $request->get_param( 'id' ) );
@@ -190,13 +177,5 @@ final class ListsController extends BaseRestController {
 		$lists->delete( $list->id );
 
 		return $this->success( [ 'state' => $service->state( $owner ) ], __( 'List deleted.', 'flexa-wishlist-for-woocommerce' ) );
-	}
-
-	private function pro_enabled(): bool {
-		return (bool) apply_filters( 'flexa_wishlist/pro/is_licensed', false );
-	}
-
-	private function pro_required(): WP_Error {
-		return $this->fail( 'pro_required', __( 'Multiple wishlists are a Pro feature.', 'flexa-wishlist-for-woocommerce' ), 403 );
 	}
 }

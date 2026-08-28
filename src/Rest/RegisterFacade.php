@@ -9,10 +9,10 @@ use Flexa\Wishlist\Support\SingletonTrait;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Registers every REST controller in one place. Extensions (and the Pro build)
- * add their own controllers by hooking `flexa_wishlist/rest/register_routes`,
- * which fires last. A controller that is not registered here is dead — so every
- * new controller must be added to register_routes().
+ * Registers every REST controller in one place. Extensions add their own
+ * controllers by hooking `flexa_wishlist/rest/register_routes`, which fires
+ * last. A controller that is not registered here is dead — so every new
+ * controller must be added to register_routes().
  */
 final class RegisterFacade {
 	use SingletonTrait;

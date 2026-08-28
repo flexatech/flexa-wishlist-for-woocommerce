@@ -20,7 +20,6 @@ export interface AppearanceSettings {
     accent_color: string;
     icon: "heart" | "star" | "bookmark";
     radius: "none" | "sm" | "md" | "lg" | "full";
-    custom_css: string;
 }
 
 export interface ButtonSettings {
@@ -53,18 +52,6 @@ export interface CounterSettings {
     auto_inject: boolean;
 }
 
-export interface NotificationsSettings {
-    price_drop_enabled: boolean;
-    price_drop_threshold: number;
-    back_in_stock_enabled: boolean;
-    sender_name: string;
-    sender_email: string;
-}
-
-export interface AnalyticsSettings {
-    attribution_window_days: number;
-}
-
 export interface AdvancedSettings {
     remove_after_add_to_cart: boolean;
     show_quantity: boolean;
@@ -81,8 +68,6 @@ export interface Settings {
     page: PageSettings;
     sharing: SharingSettings;
     counter: CounterSettings;
-    notifications: NotificationsSettings;
-    analytics: AnalyticsSettings;
     advanced: AdvancedSettings;
 }
 
@@ -96,8 +81,6 @@ export interface PluginGlobal {
     theme: AppTheme;
     settings: Settings;
     wishlistPage: { id: number; url: string };
-    proEnabled: boolean;
-    proUpgradeUrl: string;
 }
 
 declare global {

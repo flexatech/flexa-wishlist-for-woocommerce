@@ -7,10 +7,10 @@ namespace Flexa\Wishlist\Support;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Capability helpers. Per §0/§21: viewing the admin (dashboard, analytics,
- * wishlist browser) requires `manage_woocommerce`; changing settings and the
- * danger-zone reset require `manage_options`. Each gate is filterable so Pro
- * (or a host site) can re-scope access.
+ * Capability helpers. Per §0/§21: viewing the admin (dashboard, wishlist
+ * browser) requires `manage_woocommerce`; changing settings and the danger-zone
+ * reset require `manage_options`. Each gate is filterable so a host site can
+ * re-scope access.
  */
 final class Capabilities {
 	public const MANAGE   = 'manage_woocommerce';

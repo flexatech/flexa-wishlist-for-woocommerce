@@ -45,25 +45,18 @@ if ( file_exists( FLEXA_WISHLIST_PATH . 'vendor/autoload.php' ) ) {
 	require_once FLEXA_WISHLIST_PATH . 'vendor/autoload.php';
 }
 
-// Fallback autoloader for both the Free (src/) and Pro (src-pro/) trees so the
-// plugin runs without a composer install. Registered even when the Composer
-// autoloader is present so Pro classes resolve from src-pro/ by file presence.
+// Fallback autoloader for the src/ tree so the plugin runs without a composer
+// install. Registered even when the Composer autoloader is present.
 spl_autoload_register(
 	static function ( string $class ): void {
-		$map = [
-			'Flexa\\Wishlist\\'    => FLEXA_WISHLIST_PATH . 'src/',
-			'Flexa\\WishlistPro\\' => FLEXA_WISHLIST_PATH . 'src-pro/',
-		];
-		foreach ( $map as $prefix => $base_dir ) {
-			if ( ! str_starts_with( $class, $prefix ) ) {
-				continue;
-			}
-			$relative = substr( $class, strlen( $prefix ) );
-			$file     = $base_dir . str_replace( '\\', '/', $relative ) . '.php';
-			if ( is_readable( $file ) ) {
-				require $file;
-			}
+		$prefix = 'Flexa\\Wishlist\\';
+		if ( ! str_starts_with( $class, $prefix ) ) {
 			return;
+		}
+		$relative = substr( $class, strlen( $prefix ) );
+		$file     = FLEXA_WISHLIST_PATH . 'src/' . str_replace( '\\', '/', $relative ) . '.php';
+		if ( is_readable( $file ) ) {
+			require $file;
 		}
 	}
 );

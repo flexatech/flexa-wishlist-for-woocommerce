@@ -19,15 +19,14 @@ defined( 'ABSPATH' ) || exit;
 final class Settings {
 	public const OPTION_KEY = 'flexa_wishlist_settings';
 
-	public const PRESETS             = [ 'flexa', 'minimal', 'classic', 'custom' ];
-	public const ICONS               = [ 'heart', 'star', 'bookmark' ];
-	public const RADII               = [ 'none', 'sm', 'md', 'lg', 'full' ];
-	public const PAGE_LAYOUTS        = [ 'grid', 'list' ];
-	public const LOOP_POSITIONS      = [ 'on_image', 'after_add_to_cart', 'none' ];
-	public const SINGLE_POSITIONS    = [ 'after_add_to_cart', 'before_add_to_cart', 'after_summary', 'none' ];
-	public const VISIBILITIES        = [ 'private', 'shared', 'public' ];
-	public const SHARE_CHANNELS      = [ 'email', 'whatsapp', 'x', 'facebook', 'pinterest' ];
-	public const ATTRIBUTION_WINDOWS = [ 7, 14, 30, 60, 90 ];
+	public const PRESETS          = [ 'flexa', 'minimal', 'classic', 'custom' ];
+	public const ICONS            = [ 'heart', 'star', 'bookmark' ];
+	public const RADII            = [ 'none', 'sm', 'md', 'lg', 'full' ];
+	public const PAGE_LAYOUTS     = [ 'grid', 'list' ];
+	public const LOOP_POSITIONS   = [ 'on_image', 'after_add_to_cart', 'none' ];
+	public const SINGLE_POSITIONS = [ 'after_add_to_cart', 'before_add_to_cart', 'after_summary', 'none' ];
+	public const VISIBILITIES     = [ 'private', 'shared', 'public' ];
+	public const SHARE_CHANNELS   = [ 'email', 'whatsapp', 'x', 'facebook', 'pinterest' ];
 
 	/**
 	 * The full default settings payload, grouped. Everything ships tuned so the
@@ -39,57 +38,44 @@ final class Settings {
 		return apply_filters(
 			'flexa_wishlist/default_settings',
 			[
-				'general'       => [
+				'general'    => [
 					'enabled'           => true,
 					'guest_wishlists'   => true,
 					'retention_days'    => 30,
 					'default_list_name' => __( 'Favorites', 'flexa-wishlist-for-woocommerce' ),
 					'page_id'           => 0,
 				],
-				'appearance'    => [
+				'appearance' => [
 					'preset'       => 'flexa',
 					// Empty accent = inherit the theme / WooCommerce primary color
 					// (best-effort detection with a safe neutral fallback). §11.5.
 					'accent_color' => '',
 					'icon'         => 'heart',
 					'radius'       => 'md',
-					'custom_css'   => '',
 				],
-				'button'        => [
+				'button'     => [
 					'position_loop'   => 'on_image',
 					'position_single' => 'after_add_to_cart',
 					'label_add'       => __( 'Add to Wishlist', 'flexa-wishlist-for-woocommerce' ),
 					'label_added'     => __( 'In Wishlist', 'flexa-wishlist-for-woocommerce' ),
 				],
-				'page'          => [
+				'page'       => [
 					'layout'      => 'grid',
 					'per_page'    => 24,
 					'show_price'  => true,
 					'show_stock'  => true,
 					'add_to_cart' => true,
 				],
-				'sharing'       => [
+				'sharing'    => [
 					'enabled'         => true,
 					'channels'        => self::SHARE_CHANNELS,
 					'show_owner_name' => true,
 					'allow_indexing'  => false,
 				],
-				'counter'       => [
+				'counter'    => [
 					'auto_inject' => false,
 				],
-				// Pro surfaces; free ships them off. Schema lives here so the Pro
-				// build never has to migrate the option.
-				'notifications' => [
-					'price_drop_enabled'    => false,
-					'price_drop_threshold'  => 5,
-					'back_in_stock_enabled' => false,
-					'sender_name'           => '',
-					'sender_email'          => '',
-				],
-				'analytics'     => [
-					'attribution_window_days' => 30,
-				],
-				'advanced'      => [
+				'advanced'   => [
 					'remove_after_add_to_cart' => false,
 					'show_quantity'            => false,
 					'load_scripts_all_pages'   => false,
@@ -197,9 +183,6 @@ final class Settings {
 				self::set_color( $out, $incoming, 'accent_color' );
 				self::set_enum( $out, $incoming, 'icon', self::ICONS );
 				self::set_enum( $out, $incoming, 'radius', self::RADII );
-				if ( array_key_exists( 'custom_css', $incoming ) ) {
-					$out['custom_css'] = self::sanitize_css( (string) $incoming['custom_css'] );
-				}
 				break;
 
 			case 'button':
@@ -230,25 +213,6 @@ final class Settings {
 
 			case 'counter':
 				self::set_bool( $out, $incoming, 'auto_inject' );
-				break;
-
-			case 'notifications':
-				self::set_bool( $out, $incoming, 'price_drop_enabled' );
-				self::set_int( $out, $incoming, 'price_drop_threshold', 1, 99 );
-				self::set_bool( $out, $incoming, 'back_in_stock_enabled' );
-				self::set_text( $out, $incoming, 'sender_name' );
-				if ( array_key_exists( 'sender_email', $incoming ) ) {
-					$email               = sanitize_email( (string) $incoming['sender_email'] );
-					$out['sender_email'] = is_email( $email ) ? $email : '';
-				}
-				break;
-
-			case 'analytics':
-				if ( array_key_exists( 'attribution_window_days', $incoming ) ) {
-					$days = (int) $incoming['attribution_window_days'];
-					// Allow the preset windows plus any custom value in range.
-					$out['attribution_window_days'] = max( 1, min( 365, $days ) );
-				}
 				break;
 
 			case 'advanced':
@@ -323,18 +287,6 @@ final class Settings {
 		if ( is_string( $hex ) && '' !== $hex ) {
 			$out[ $key ] = $hex;
 		}
-	}
-
-	/**
-	 * Strip anything that isn't safe to echo inside a <style> block. Keeps the
-	 * custom-CSS escape hatch (§11.5) from becoming an injection vector.
-	 */
-	private static function sanitize_css( string $css ): string {
-		$css = wp_strip_all_tags( $css );
-		// Disallow the sequence that would close the style element early.
-		$css = str_ireplace( [ '</style', '<script', 'javascript:', 'expression(' ], '', $css );
-
-		return trim( $css );
 	}
 
 	/**

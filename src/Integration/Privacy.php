@@ -15,8 +15,7 @@ defined( 'ABSPATH' ) || exit;
 
 /**
  * GDPR personal-data exporter + eraser (§18.2). Registers a "Wishlists" group
- * covering a user's lists, saved items, and (Pro) stock subscriptions keyed by
- * their account email.
+ * covering a user's lists and saved items keyed by their account email.
  */
 final class Privacy {
 	use SingletonTrait;

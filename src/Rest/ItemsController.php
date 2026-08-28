@@ -24,7 +24,7 @@ defined( 'ABSPATH' ) || exit;
  * - POST   /items/toggle     save if absent / remove if present, by product key
  * - DELETE /items/{id}       remove by id (returns a restore row for Undo)
  * - POST   /items/restore    re-insert a removed row, preserving date + position
- * - PATCH  /items/{id}       update quantity (Pro surface)
+ * - PATCH  /items/{id}       update quantity
  */
 final class ItemsController extends BaseRestController {
 	public function register_routes(): void {
@@ -137,8 +137,11 @@ final class ItemsController extends BaseRestController {
 		$lists = $service->lists();
 		$items = $service->items();
 
-		// Look for the key anywhere the owner owns (or in the given list).
-		$target_ids = $list_id > 0 ? [ $list_id ] : $lists->ids_for_owner( $owner );
+		// Look for the key across the owner's lists. An explicit listId only
+		// narrows the search to that list when the owner actually owns it — an
+		// unowned id is never trusted, so it can't reach another owner's items.
+		$owned_ids  = $lists->ids_for_owner( $owner );
+		$target_ids = $list_id > 0 ? array_values( array_intersect( $owned_ids, [ $list_id ] ) ) : $owned_ids;
 		$found      = null;
 		foreach ( $target_ids as $lid ) {
 			$id = $items->find_id( (int) $lid, $product_id, $variation_id );

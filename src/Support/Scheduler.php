@@ -10,14 +10,12 @@ defined( 'ABSPATH' ) || exit;
 
 /**
  * Owns the plugin's daily maintenance jobs (§17.7): guest wishlist cleanup past
- * the retention window. The price-scan hook is registered here too but only
- * acted on by the Pro build (the hook fires harmlessly in Free).
+ * the retention window.
  */
 final class Scheduler {
 	use SingletonTrait;
 
 	public const GUEST_CLEANUP = 'flexa_wishlist/cron/guest_cleanup';
-	public const PRICE_SCAN    = 'flexa_wishlist/cron/price_scan';
 
 	public function register(): void {
 		add_action( 'init', [ $this, 'ensure_scheduled' ] );

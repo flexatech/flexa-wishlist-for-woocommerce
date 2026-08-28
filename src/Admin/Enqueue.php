@@ -53,20 +53,18 @@ final class Enqueue {
 		return apply_filters(
 			'flexa_wishlist/admin_config',
 			[
-				'restUrl'       => esc_url_raw( rest_url() ),
-				'restBase'      => FLEXA_WISHLIST_REST_NAMESPACE,
-				'restNonce'     => wp_create_nonce( 'wp_rest' ),
-				'version'       => FLEXA_WISHLIST_VERSION,
-				'pluginUrl'     => esc_url_raw( FLEXA_WISHLIST_URL ),
-				'locale'        => determine_locale(),
-				'theme'         => $this->detect_admin_theme(),
-				'settings'      => Settings::all(),
-				'wishlistPage'  => [
+				'restUrl'      => esc_url_raw( rest_url() ),
+				'restBase'     => FLEXA_WISHLIST_REST_NAMESPACE,
+				'restNonce'    => wp_create_nonce( 'wp_rest' ),
+				'version'      => FLEXA_WISHLIST_VERSION,
+				'pluginUrl'    => esc_url_raw( FLEXA_WISHLIST_URL ),
+				'locale'       => determine_locale(),
+				'theme'        => $this->detect_admin_theme(),
+				'settings'     => Settings::all(),
+				'wishlistPage' => [
 					'id'  => $page_id,
 					'url' => $page_id > 0 ? get_permalink( $page_id ) : '',
 				],
-				'proEnabled'    => (bool) apply_filters( 'flexa_wishlist/pro/is_licensed', false ),
-				'proUpgradeUrl' => 'https://flexacommerce.com/wishlist',
 			]
 		);
 	}

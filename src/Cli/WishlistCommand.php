@@ -23,7 +23,7 @@ final class WishlistCommand {
 	}
 
 	/**
-	 * Remove all wishlist data (lists, items, subscriptions, analytics, settings).
+	 * Remove all wishlist data (lists, items, settings).
 	 *
 	 * ## OPTIONS
 	 *

@@ -1,5 +1,4 @@
 import {
-    Bell,
     Bookmark,
     ChevronDown,
     Clock,
@@ -9,7 +8,6 @@ import {
     LayoutGrid,
     Link2,
     ListPlus,
-    Lock,
     MousePointerClick,
     Palette,
     Save,
@@ -17,7 +15,6 @@ import {
     Share2,
     ShieldAlert,
     ShoppingCart,
-    Sparkles,
     SquareStack,
     Star,
     Tag,
@@ -32,10 +29,8 @@ import { Label } from "@/components/ui/label";
 import { Select } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { cn } from "@/lib/cn";
-import { SHOW_PRO_UPSELL } from "@/lib/flags";
 import { __ } from "@/lib/i18n";
 import { useUiStore } from "@/lib/store";
-import { getPluginGlobal } from "@/lib/wp";
 import type { Settings } from "@/types/global";
 import { DangerZone } from "./DangerZone";
 import { ROW_DIVIDER, SettingRow } from "./SettingRow";
@@ -49,8 +44,6 @@ type SectionId =
     | "sharing"
     | "counter"
     | "advanced"
-    | "notifications"
-    | "analytics"
     | "danger";
 
 interface SectionMeta {
@@ -60,10 +53,9 @@ interface SectionMeta {
     icon: LucideIcon;
     paneTitle: string;
     paneSubtitle: string;
-    pro?: boolean;
 }
 
-const ALL_SECTIONS: SectionMeta[] = [
+const SECTIONS: SectionMeta[] = [
     {
         id: "general",
         title: __("General"),
@@ -121,24 +113,6 @@ const ALL_SECTIONS: SectionMeta[] = [
         paneSubtitle: __("Fine-grained behavior and data-cleanup options."),
     },
     {
-        id: "notifications",
-        title: __("Notifications"),
-        subtitle: __("Price-drop & back-in-stock"),
-        icon: Bell,
-        paneTitle: __("Notifications"),
-        paneSubtitle: __("Email shoppers when saved products change."),
-        pro: true,
-    },
-    {
-        id: "analytics",
-        title: __("Analytics"),
-        subtitle: __("Conversion insights"),
-        icon: Sparkles,
-        paneTitle: __("Analytics"),
-        paneSubtitle: __("Attribution and conversion reporting for wishlists."),
-        pro: true,
-    },
-    {
         id: "danger",
         title: __("Danger Zone"),
         subtitle: __("Destructive actions"),
@@ -147,12 +121,6 @@ const ALL_SECTIONS: SectionMeta[] = [
         paneSubtitle: __("Reset everything back to a clean slate."),
     },
 ];
-
-// Pro-teaser sections (Notifications, Analytics) are upsell-only surfaces.
-// Hidden for the WordPress.org build; re-enabled by flipping SHOW_PRO_UPSELL.
-const SECTIONS: SectionMeta[] = ALL_SECTIONS.filter(
-    (s) => SHOW_PRO_UPSELL || !s.pro,
-);
 
 const PRESET_OPTIONS = [
     { value: "flexa", label: __("Flexa") },
@@ -216,7 +184,6 @@ export function SettingsPage() {
     const showToast = useUiStore((s) => s.showToast);
     const storedActive = useUiStore((s) => s.activeSection) as SectionId;
     const setActive = useUiStore((s) => s.setActiveSection);
-    const { proEnabled } = getPluginGlobal();
 
     const [form, setForm] = useState<Settings | null>(null);
     useEffect(() => {
@@ -260,8 +227,7 @@ export function SettingsPage() {
         setForm({ ...form!, [group]: { ...form![group], ...patch } });
     }
 
-    // Fall back to the first visible section if the persisted one is hidden
-    // (e.g. a Pro-teaser section that is not shown in this build).
+    // Fall back to the first section if the persisted one no longer exists.
     const activeSection = SECTIONS.find((s) => s.id === storedActive) ?? SECTIONS[0];
     const active = activeSection.id;
 
@@ -327,7 +293,6 @@ export function SettingsPage() {
                             key={s.id}
                             section={s}
                             selected={active === s.id}
-                            locked={Boolean(s.pro) && !proEnabled}
                             onSelect={() => setActive(s.id)}
                         />
                     ))}
@@ -360,24 +325,6 @@ export function SettingsPage() {
                         )}
                         {active === "advanced" && (
                             <AdvancedPane form={form} onChange={(p) => setGroup("advanced", p)} />
-                        )}
-                        {active === "notifications" && (
-                            <ProTeaser
-                                title={__("Notifications are a Pro feature")}
-                                description={__(
-                                    "Automatically email shoppers when a saved product drops in price or comes back in stock.",
-                                )}
-                                enabled={proEnabled}
-                            />
-                        )}
-                        {active === "analytics" && (
-                            <ProTeaser
-                                title={__("Analytics is a Pro feature")}
-                                description={__(
-                                    "See which wishlisted products convert, with configurable attribution windows.",
-                                )}
-                                enabled={proEnabled}
-                            />
                         )}
                         {active === "danger" && (
                             <div className="fw:p-5">
@@ -550,25 +497,6 @@ function AppearancePane({ form, onChange }: PaneProps<"appearance">) {
                         }
                     />
                 </SettingRow>
-            </div>
-            <div className={cn(ROW_DIVIDER, "fw:space-y-1.5 fw:p-5")}>
-                <Label
-                    htmlFor="fw-appearance-css"
-                    className="fw:text-sm fw:font-semibold fw:text-slate-900"
-                >
-                    {__("Custom CSS")}
-                </Label>
-                <p className="fw:text-xs fw:text-slate-500">
-                    {__("Extra CSS injected on the storefront. Use with care.")}
-                </p>
-                <textarea
-                    id="fw-appearance-css"
-                    rows={5}
-                    value={a.custom_css}
-                    placeholder=".flexa-wishlist { }"
-                    onChange={(e) => onChange({ custom_css: e.target.value })}
-                    className="flexa-wishlist-for-woocommerce-control fw:w-full fw:rounded-md fw:border fw:border-slate-300 fw:bg-white fw:px-3 fw:py-2 fw:font-mono fw:text-sm fw:shadow-sm fw:transition-colors fw:placeholder:text-slate-400 fw:focus-visible:outline-none fw:focus-visible:ring-2 fw:focus-visible:ring-brand-500 fw:focus-visible:ring-offset-1"
-                />
             </div>
         </div>
     );
@@ -915,11 +843,10 @@ function AdvancedPane({ form, onChange }: PaneProps<"advanced">) {
 interface NavItemProps {
     section: SectionMeta;
     selected: boolean;
-    locked: boolean;
     onSelect: () => void;
 }
 
-function NavItem({ section, selected, locked, onSelect }: NavItemProps) {
+function NavItem({ section, selected, onSelect }: NavItemProps) {
     const Icon = section.icon;
     return (
         <button
@@ -952,19 +879,6 @@ function NavItem({ section, selected, locked, onSelect }: NavItemProps) {
                     )}
                 >
                     {section.title}
-                    {locked && (
-                        <span
-                            className={cn(
-                                "fw:inline-flex fw:items-center fw:gap-0.5 fw:rounded-full fw:px-1.5 fw:py-0.5 fw:text-[10px] fw:font-bold fw:uppercase fw:tracking-wide",
-                                selected
-                                    ? "fw:bg-white/20 fw:text-white"
-                                    : "fw:bg-brand-50 fw:text-brand-700",
-                            )}
-                        >
-                            <Lock className="fw:h-2.5 fw:w-2.5" aria-hidden />
-                            {__("Pro")}
-                        </span>
-                    )}
                 </span>
                 <span
                     className={cn(
@@ -998,48 +912,6 @@ function PaneHeader({ section }: { section: SectionMeta }) {
                     {section.paneTitle}
                 </h2>
                 <p className="fw:text-sm fw:text-slate-500">{section.paneSubtitle}</p>
-            </div>
-        </div>
-    );
-}
-
-/** Locked teaser card for Pro-only sections. Rendered visible but disabled
- *  (no interactive controls) when Pro is not enabled. */
-function ProTeaser({
-    title,
-    description,
-    enabled,
-}: {
-    title: string;
-    description: string;
-    enabled: boolean;
-}) {
-    const { proUpgradeUrl } = getPluginGlobal();
-    return (
-        <div className="fw:p-5">
-            <div
-                aria-disabled={!enabled}
-                className={cn(
-                    "fw:flex fw:flex-col fw:items-start fw:gap-4 fw:rounded-xl fw:border fw:border-dashed fw:border-brand-300 fw:bg-brand-50/50 fw:p-6",
-                    !enabled && "fw:opacity-90",
-                )}
-            >
-                <span className="fw:flex fw:h-12 fw:w-12 fw:items-center fw:justify-center fw:rounded-xl fw:bg-brand-600 fw:text-white">
-                    <Lock className="fw:h-6 fw:w-6" aria-hidden />
-                </span>
-                <div className="fw:space-y-1">
-                    <h3 className="fw:text-base fw:font-semibold fw:text-brand-900">
-                        {title}
-                    </h3>
-                    <p className="fw:text-sm fw:text-brand-800">{description}</p>
-                </div>
-                {!enabled && (
-                    <Button asChild>
-                        <a href={proUpgradeUrl} target="_blank" rel="noreferrer">
-                            {__("Upgrade to Pro")}
-                        </a>
-                    </Button>
-                )}
             </div>
         </div>
     );

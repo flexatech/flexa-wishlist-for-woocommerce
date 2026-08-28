@@ -3,19 +3,14 @@ import {
     Layers,
     ListChecks,
     Package,
-    Sparkles,
     Users,
     type LucideIcon,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { __, sprintf } from "@/lib/i18n";
-import { getPluginGlobal } from "@/lib/wp";
-import { SHOW_PRO_UPSELL } from "@/lib/flags";
 import { useDashboard } from "./useDashboard";
 
 export function DashboardPage() {
     const dashboard = useDashboard();
-    const { proEnabled, proUpgradeUrl } = getPluginGlobal();
 
     return (
         <div className="fw:min-h-full fw:bg-slate-50">
@@ -90,10 +85,6 @@ export function DashboardPage() {
                         </div>
 
                         <TopProducts products={dashboard.data.topProducts} />
-
-                        {SHOW_PRO_UPSELL && !proEnabled && (
-                            <ProStrip upgradeUrl={proUpgradeUrl} />
-                        )}
                     </>
                 )}
             </div>
@@ -172,29 +163,3 @@ function TopProducts({ products }: { products: import("./useDashboard").TopProdu
     );
 }
 
-function ProStrip({ upgradeUrl }: { upgradeUrl: string }) {
-    return (
-        <div className="fw:flex fw:flex-col fw:gap-3 fw:rounded-xl fw:border fw:border-brand-200 fw:bg-brand-50 fw:p-5 fw:sm:flex-row fw:sm:items-center fw:sm:justify-between">
-            <div className="fw:flex fw:items-start fw:gap-3">
-                <span className="fw:flex fw:h-10 fw:w-10 fw:shrink-0 fw:items-center fw:justify-center fw:rounded-lg fw:bg-brand-600 fw:text-white">
-                    <Sparkles className="fw:h-5 fw:w-5" aria-hidden />
-                </span>
-                <div>
-                    <h3 className="fw:text-sm fw:font-semibold fw:text-brand-900">
-                        {__("Unlock Wishlist Pro")}
-                    </h3>
-                    <p className="fw:text-sm fw:text-brand-800">
-                        {__(
-                            "Price-drop and back-in-stock emails, conversion analytics, multiple lists, and more.",
-                        )}
-                    </p>
-                </div>
-            </div>
-            <Button asChild className="fw:shrink-0">
-                <a href={upgradeUrl} target="_blank" rel="noreferrer">
-                    {__("Upgrade to Pro")}
-                </a>
-            </Button>
-        </div>
-    );
-}
