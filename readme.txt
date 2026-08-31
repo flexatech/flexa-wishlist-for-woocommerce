@@ -4,7 +4,7 @@ Tags: woocommerce, wishlist, wishlists, save for later, ecommerce
 Requires at least: 6.2
 Tested up to: 7.1
 Requires PHP: 8.2
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -93,6 +93,9 @@ The admin app is built with pnpm and Vite:
 
 == Changelog ==
 
+= 1.0.2 =
+* Fix: wishlist page loading spinner stayed visible after items loaded; it now hides once the list (or empty state) renders.
+
 = 1.0.1 =
 * Removed all Pro/licensing gates — multiple wishlists and every feature are now free.
 * Security: verify ownership on item toggle to prevent cross-account removal (IDOR).
@@ -102,6 +105,9 @@ The admin app is built with pnpm and Vite:
 * Initial release.
 
 == Upgrade Notice ==
+
+= 1.0.2 =
+Fixes the wishlist page spinner that could keep spinning after items loaded.
 
 = 1.0.1 =
 Security and compliance fixes: multi-wishlist unlocked for free, item-toggle ownership check, custom CSS removed.

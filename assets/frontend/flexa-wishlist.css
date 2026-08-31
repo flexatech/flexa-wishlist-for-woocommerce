@@ -134,6 +134,11 @@ li.product,
 
 /* ---- Wishlist page --------------------------------------------------- */
 
+/* The page shell toggles sections via the `hidden` attribute (JS hide()/show()).
+ * Author display rules below (flex/grid) outrank the UA `[hidden]` default, so
+ * without this the spinner would keep showing after the list renders. */
+.fw-page [hidden] { display: none !important; }
+
 .fw-page__loading {
 	display: flex;
 	justify-content: center;
