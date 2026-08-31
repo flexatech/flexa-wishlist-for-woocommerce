@@ -22,8 +22,9 @@ final class PageRenderer {
 		$layout    = isset( $atts['layout'] ) && in_array( $atts['layout'], Settings::PAGE_LAYOUTS, true )
 			? (string) $atts['layout']
 			: (string) Settings::get( 'page', 'layout' );
-		$shop_url  = function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 'shop' ) : home_url( '/' );
-		$show_cart = (bool) Settings::get( 'page', 'add_to_cart' );
+		$shop_url   = function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 'shop' ) : home_url( '/' );
+		$show_cart  = (bool) Settings::get( 'page', 'add_to_cart' );
+		$show_share = (bool) Settings::get( 'sharing', 'enabled' );
 
 		ob_start();
 		?>
@@ -44,11 +45,19 @@ final class PageRenderer {
 				</div>
 			</div>
 
-			<?php if ( $show_cart ) : ?>
+			<?php if ( $show_cart || $show_share ) : ?>
 				<div class="fw-page__toolbar" data-fw-page-toolbar hidden>
-					<button type="button" class="fw-btn-cta fw-add-all" data-fw-add-all hidden>
-						<?php esc_html_e( 'Add all to cart', 'flexa-wishlist-for-woocommerce' ); ?>
-					</button>
+					<?php if ( $show_share ) : ?>
+						<button type="button" class="fw-btn-cta fw-btn-cta--ghost fw-share-btn" data-fw-share aria-haspopup="true" aria-expanded="false" hidden>
+							<svg class="fw-share-btn__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.6" y1="10.5" x2="15.4" y2="6.5"></line><line x1="8.6" y1="13.5" x2="15.4" y2="17.5"></line></svg>
+							<?php esc_html_e( 'Share', 'flexa-wishlist-for-woocommerce' ); ?>
+						</button>
+					<?php endif; ?>
+					<?php if ( $show_cart ) : ?>
+						<button type="button" class="fw-btn-cta fw-add-all" data-fw-add-all hidden>
+							<?php esc_html_e( 'Add all to cart', 'flexa-wishlist-for-woocommerce' ); ?>
+						</button>
+					<?php endif; ?>
 				</div>
 			<?php endif; ?>
 

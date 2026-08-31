@@ -68,12 +68,15 @@ final class ShareController extends BaseRestController {
 			return $this->fail( 'not_found', __( 'Wishlist not found.', 'flexa-wishlist-for-woocommerce' ), 404 );
 		}
 
-		$slug = $this->unique_slug( $lists );
+		// Reuse the list's existing slug so previously shared links stay valid;
+		// only mint one the first time. Never downgrade an already-public list.
+		$slug       = ( null !== $list->share_slug && '' !== $list->share_slug ) ? $list->share_slug : $this->unique_slug( $lists );
+		$visibility = 'private' === $list->visibility ? 'shared' : $list->visibility;
 		$lists->update(
 			$list->id,
 			[
 				'share_slug' => $slug,
-				'visibility' => 'shared',
+				'visibility' => $visibility,
 			]
 		);
 		do_action( 'flexa_wishlist/list/shared', $list->id, $slug );

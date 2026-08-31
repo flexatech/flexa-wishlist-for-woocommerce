@@ -112,6 +112,10 @@ final class Assets {
 				'stateTtl'    => 60,
 				'emitEvents'  => true,
 				'cartEnabled' => (bool) Settings::get( 'page', 'add_to_cart' ),
+				'share'       => [
+					'enabled'  => (bool) Settings::get( 'sharing', 'enabled' ),
+					'channels' => array_values( (array) Settings::get( 'sharing', 'channels' ) ),
+				],
 				'labels'      => [
 					'add'   => (string) Settings::get( 'button', 'label_add' ),
 					'added' => (string) Settings::get( 'button', 'label_added' ),
@@ -132,6 +136,15 @@ final class Assets {
 					'addAll'      => __( 'Add all to cart', 'flexa-wishlist-for-woocommerce' ),
 					'addingAll'   => __( 'Adding…', 'flexa-wishlist-for-woocommerce' ),
 					'someSkipped' => __( 'Some items could not be added.', 'flexa-wishlist-for-woocommerce' ),
+					'shareTitle'  => __( 'Share your wishlist', 'flexa-wishlist-for-woocommerce' ),
+					'copyLink'    => __( 'Copy link', 'flexa-wishlist-for-woocommerce' ),
+					'copied'      => __( 'Link copied to clipboard.', 'flexa-wishlist-for-woocommerce' ),
+					'shareVia'    => __( 'Share via…', 'flexa-wishlist-for-woocommerce' ),
+					'chEmail'     => __( 'Email', 'flexa-wishlist-for-woocommerce' ),
+					'chWhatsapp'  => __( 'WhatsApp', 'flexa-wishlist-for-woocommerce' ),
+					'chX'         => __( 'X', 'flexa-wishlist-for-woocommerce' ),
+					'chFacebook'  => __( 'Facebook', 'flexa-wishlist-for-woocommerce' ),
+					'chPinterest' => __( 'Pinterest', 'flexa-wishlist-for-woocommerce' ),
 				],
 			]
 		);

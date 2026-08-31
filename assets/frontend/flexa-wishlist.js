@@ -306,13 +306,21 @@
 		}
 	}
 
-	// Show the "Add all" button only when the list has at least one cartable item.
+	// Reveal the toolbar and its buttons: "Add all" when the list has a cartable
+	// item, "Share" when sharing is enabled and the list is non-empty.
 	function syncAddAll() {
 		var toolbar = page.el && page.el.querySelector('[data-fw-page-toolbar]');
-		if (!toolbar || !CFG.cartEnabled) return;
-		show(toolbar);
+		if (!toolbar) return;
+
 		var addAll = page.el.querySelector('[data-fw-add-all]');
-		if (page.el.querySelector('[data-fw-add-cart]')) { show(addAll); } else { hide(addAll); }
+		var showAddAll = CFG.cartEnabled && !!page.el.querySelector('[data-fw-add-cart]');
+		if (addAll) { showAddAll ? show(addAll) : hide(addAll); }
+
+		var shareBtn = page.el.querySelector('[data-fw-share]');
+		var showShare = shareEnabled() && !!page.el.querySelector('[data-fw-item]');
+		if (shareBtn) { showShare ? show(shareBtn) : hide(shareBtn); }
+
+		if (showAddAll || showShare) { show(toolbar); } else { hide(toolbar); }
 	}
 
 	function addToCart(itemId, btn) {
@@ -377,6 +385,149 @@
 				toast(err.message || CFG.i18n.error);
 			});
 		});
+	}
+
+	// ---- Share -------------------------------------------------------------
+
+	var sharePanel = null;
+	var shareUrl = '';
+
+	function shareEnabled() {
+		return !!(CFG.share && CFG.share.enabled);
+	}
+
+	// Lazily create the shareable link (POST /lists/{id}/share), then reveal the
+	// panel. The slug is generated server-side; we cache the URL for the session.
+	function onShareClick(btn) {
+		if (shareUrl) { toggleSharePanel(btn); return; }
+		btn.classList.add('fw-btn--busy');
+		api('lists/' + (page.listId || 0) + '/share', 'POST', {}).then(function (data) {
+			btn.classList.remove('fw-btn--busy');
+			shareUrl = data.url || '';
+			emit('fw:list-shared', { slug: data.slug, url: shareUrl });
+			toggleSharePanel(btn);
+		}).catch(function (err) {
+			btn.classList.remove('fw-btn--busy');
+			toast(err.message || CFG.i18n.error);
+		});
+	}
+
+	function toggleSharePanel(btn) {
+		if (!sharePanel) {
+			sharePanel = buildSharePanel();
+			btn.parentNode.appendChild(sharePanel);
+		}
+		var open = sharePanel.hidden;
+		if (open) {
+			var input = sharePanel.querySelector('[data-fw-share-url]');
+			if (input) input.value = shareUrl;
+		}
+		sharePanel.hidden = !open;
+		btn.setAttribute('aria-expanded', String(open));
+	}
+
+	function closeSharePanel() {
+		if (sharePanel && !sharePanel.hidden) {
+			sharePanel.hidden = true;
+			var btn = page.el && page.el.querySelector('[data-fw-share]');
+			if (btn) btn.setAttribute('aria-expanded', 'false');
+		}
+	}
+
+	function buildSharePanel() {
+		var panel = document.createElement('div');
+		panel.className = 'fw-share-panel';
+		panel.setAttribute('data-fw-share-panel', '');
+		panel.hidden = true;
+
+		var title = document.createElement('p');
+		title.className = 'fw-share-panel__title';
+		title.textContent = t('shareTitle');
+		panel.appendChild(title);
+
+		var row = document.createElement('div');
+		row.className = 'fw-share-panel__row';
+		var input = document.createElement('input');
+		input.type = 'text';
+		input.readOnly = true;
+		input.className = 'fw-share-panel__url';
+		input.setAttribute('data-fw-share-url', '');
+		input.value = shareUrl;
+		input.addEventListener('focus', function () { input.select(); });
+		row.appendChild(input);
+		var copy = document.createElement('button');
+		copy.type = 'button';
+		copy.className = 'fw-btn-cta fw-share-panel__copy';
+		copy.textContent = t('copyLink');
+		copy.addEventListener('click', function () { copyShareUrl(input); });
+		row.appendChild(copy);
+		panel.appendChild(row);
+
+		var channels = (CFG.share && CFG.share.channels) || [];
+		if (channels.length) {
+			var list = document.createElement('div');
+			list.className = 'fw-share-panel__channels';
+			channels.forEach(function (ch) {
+				var url = channelUrl(ch, shareUrl);
+				if (!url) return;
+				var a = document.createElement('a');
+				a.className = 'fw-share-chip fw-share-chip--' + ch;
+				a.href = url;
+				a.target = '_blank';
+				a.rel = 'noopener noreferrer';
+				a.textContent = channelLabel(ch);
+				list.appendChild(a);
+			});
+			panel.appendChild(list);
+		}
+
+		if (navigator.share) {
+			var native = document.createElement('button');
+			native.type = 'button';
+			native.className = 'fw-share-panel__native';
+			native.textContent = t('shareVia');
+			native.addEventListener('click', function () {
+				navigator.share({ title: document.title, url: shareUrl }).catch(function () {});
+			});
+			panel.appendChild(native);
+		}
+
+		return panel;
+	}
+
+	function channelUrl(ch, url) {
+		var u = encodeURIComponent(url);
+		var text = encodeURIComponent(document.title);
+		switch (ch) {
+			case 'email': return 'mailto:?subject=' + text + '&body=' + u;
+			case 'whatsapp': return 'https://wa.me/?text=' + u;
+			case 'x': return 'https://twitter.com/intent/tweet?url=' + u + '&text=' + text;
+			case 'facebook': return 'https://www.facebook.com/sharer/sharer.php?u=' + u;
+			case 'pinterest': return 'https://www.pinterest.com/pin/create/button/?url=' + u + '&description=' + text;
+			default: return '';
+		}
+	}
+
+	function channelLabel(ch) {
+		var key = 'ch' + ch.charAt(0).toUpperCase() + ch.slice(1);
+		var fallback = { email: 'Email', whatsapp: 'WhatsApp', x: 'X', facebook: 'Facebook', pinterest: 'Pinterest' };
+		return (CFG.i18n && CFG.i18n[key]) || fallback[ch] || ch;
+	}
+
+	function copyShareUrl(input) {
+		var done = function () { toast(t('copied')); };
+		if (navigator.clipboard && navigator.clipboard.writeText) {
+			navigator.clipboard.writeText(shareUrl).then(done).catch(function () { legacyCopy(input); done(); });
+		} else {
+			legacyCopy(input);
+			done();
+		}
+	}
+
+	function legacyCopy(input) {
+		input.focus();
+		input.select();
+		try { document.execCommand('copy'); } catch (e) {}
 	}
 
 	// ---- Toast -------------------------------------------------------------
@@ -445,6 +596,15 @@
 	// ---- Global click delegation ------------------------------------------
 
 	document.addEventListener('click', function (e) {
+		// Dismiss the share popover on any click outside it (and outside the button).
+		if (sharePanel && !sharePanel.hidden && e.target.closest &&
+			!e.target.closest('[data-fw-share-panel]') && !e.target.closest('[data-fw-share]')) {
+			closeSharePanel();
+		}
+
+		var share = e.target.closest && e.target.closest('[data-fw-share]');
+		if (share) { e.preventDefault(); onShareClick(share); return; }
+
 		var toggle = e.target.closest && e.target.closest('[data-fw-toggle]');
 		if (toggle) { e.preventDefault(); onToggleClick(toggle); return; }
 

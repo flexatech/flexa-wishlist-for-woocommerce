@@ -4,7 +4,7 @@ Tags: woocommerce, wishlist, wishlists, save for later, ecommerce
 Requires at least: 6.2
 Tested up to: 7.1
 Requires PHP: 8.2
-Stable tag: 1.0.2
+Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -76,6 +76,7 @@ Uninstalling removes the plugin's tables and options so nothing is left behind. 
 2. The wishlist page — a responsive card list with add-to-cart and remove-with-undo.
 3. The admin dashboard — a quick pulse on how shoppers use their wishlists.
 4. Settings — presets over knobs, with the accent color following your theme.
+5. Sharing a wishlist — copy the link, use the native share sheet, or post to social channels.
 
 == Source code ==
 
@@ -92,6 +93,9 @@ The admin app is built with pnpm and Vite:
 
 == Changelog ==
 
+= 1.1.0 =
+* New: Share button on the wishlist page — generates a stable share link with copy-to-clipboard, the native share sheet, and the social channels enabled in Settings.
+
 = 1.0.2 =
 * Fix: wishlist page loading spinner stayed visible after items loaded; it now hides once the list (or empty state) renders.
 
@@ -104,6 +108,9 @@ The admin app is built with pnpm and Vite:
 * Initial release.
 
 == Upgrade Notice ==
+
+= 1.1.0 =
+Adds a Share button to the wishlist page with copy-link, native share, and social channels.
 
 = 1.0.2 =
 Fixes the wishlist page spinner that could keep spinning after items loaded.

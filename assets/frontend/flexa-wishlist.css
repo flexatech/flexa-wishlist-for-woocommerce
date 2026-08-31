@@ -299,7 +299,87 @@ li.product,
 .fw-page__toolbar {
 	display: flex;
 	justify-content: flex-end;
+	align-items: center;
+	gap: 12px;
 	margin-bottom: 16px;
+	position: relative;
+}
+
+.fw-share-btn {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.fw-share-btn__icon { flex: 0 0 auto; }
+
+.fw-share-panel {
+	position: absolute;
+	top: calc(100% + 8px);
+	right: 0;
+	z-index: 20;
+	width: min(340px, 90vw);
+	padding: 16px;
+	background: var(--fw-bg);
+	border: 1px solid var(--fw-border);
+	border-radius: var(--fw-radius);
+	box-shadow: 0 12px 32px rgba(0, 0, 0, .14);
+	text-align: left;
+}
+
+.fw-share-panel__title {
+	margin: 0 0 10px;
+	font-weight: 600;
+	color: var(--fw-ink);
+}
+
+.fw-share-panel__row {
+	display: flex;
+	gap: 8px;
+	margin-bottom: 12px;
+}
+
+.fw-share-panel__url {
+	flex: 1 1 auto;
+	min-width: 0;
+	padding: 8px 10px;
+	border: 1px solid var(--fw-border);
+	border-radius: var(--fw-radius);
+	font: inherit;
+	color: var(--fw-muted);
+	background: #f9fafb;
+}
+
+.fw-share-panel__copy { padding: 8px 14px; white-space: nowrap; }
+
+.fw-share-panel__channels {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+}
+
+.fw-share-chip {
+	display: inline-block;
+	padding: 6px 12px;
+	border: 1px solid var(--fw-border);
+	border-radius: 999px;
+	color: var(--fw-ink);
+	text-decoration: none;
+	font-size: 13px;
+}
+
+.fw-share-chip:hover { border-color: var(--fw-accent); color: var(--fw-accent); }
+
+.fw-share-panel__native {
+	margin-top: 12px;
+	width: 100%;
+	padding: 8px 14px;
+	background: transparent;
+	border: 1px solid var(--fw-border);
+	border-radius: var(--fw-radius);
+	color: var(--fw-ink);
+	cursor: pointer;
+	font: inherit;
 }
 
 .fw-page__footer {
