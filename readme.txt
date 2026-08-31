@@ -72,11 +72,10 @@ Uninstalling removes the plugin's tables and options so nothing is left behind. 
 
 == Screenshots ==
 
-1. The wishlist page — a responsive card list with add-to-cart and remove-with-undo.
-2. The one-tap heart button on a product card, with instant optimistic feedback.
-3. Sharing a wishlist — native share sheet on mobile, copy-link and channels on desktop.
-4. The admin dashboard — a quick pulse on how shoppers use their wishlists.
-5. Settings — presets over knobs, with the accent color following your theme.
+1. The one-tap heart button on product cards, with instant optimistic feedback.
+2. The wishlist page — a responsive card list with add-to-cart and remove-with-undo.
+3. The admin dashboard — a quick pulse on how shoppers use their wishlists.
+4. Settings — presets over knobs, with the accent color following your theme.
 
 == Source code ==
 
