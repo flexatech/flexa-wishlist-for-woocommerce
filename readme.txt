@@ -4,7 +4,7 @@ Tags: woocommerce, wishlist, wishlists, save for later, ecommerce
 Requires at least: 6.2
 Tested up to: 7.1
 Requires PHP: 8.2
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -93,6 +93,9 @@ The admin app is built with pnpm and Vite:
 
 == Changelog ==
 
+= 1.1.1 =
+* Fix: cleared the WordPress 6.7+ "translation loading triggered too early" notice by deferring settings-dependent hook setup to the init action.
+
 = 1.1.0 =
 * New: Share button on the wishlist page — generates a stable share link with copy-to-clipboard, the native share sheet, and the social channels enabled in Settings.
 
@@ -108,6 +111,9 @@ The admin app is built with pnpm and Vite:
 * Initial release.
 
 == Upgrade Notice ==
+
+= 1.1.1 =
+Fixes a WordPress 6.7+ debug notice about translations loading too early. Recommended for all users.
 
 = 1.1.0 =
 Adds a Share button to the wishlist page with copy-link, native share, and social channels.
