@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Flexa Wishlist for WooCommerce
  * Description:       A mobile-first, cache-safe wishlist for WooCommerce: one-tap save, guest persistence, silent account merge, a beautiful wishlist page, and effortless sharing.
- * Version:           1.1.0
+ * Version:           1.1.1
  * Requires at least: 6.2
  * Requires PHP:      8.2
  * Requires Plugins:  woocommerce
@@ -33,7 +33,7 @@ if ( version_compare( PHP_VERSION, '8.2', '<' ) ) {
 	return;
 }
 
-define( 'FLEXA_WISHLIST_VERSION', '1.1.0' );
+define( 'FLEXA_WISHLIST_VERSION', '1.1.1' );
 define( 'FLEXA_WISHLIST_FILE', __FILE__ );
 define( 'FLEXA_WISHLIST_PATH', plugin_dir_path( __FILE__ ) );
 define( 'FLEXA_WISHLIST_URL', plugin_dir_url( __FILE__ ) );

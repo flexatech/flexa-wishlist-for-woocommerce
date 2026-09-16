@@ -21,6 +21,13 @@ final class ButtonRenderer {
 	use SingletonTrait;
 
 	public function register(): void {
+		// Defer to init: reading Settings builds the defaults array, which calls
+		// __() for the label defaults. Doing that before init trips WP 6.7's
+		// "translation loaded too early" notice.
+		add_action( 'init', [ $this, 'register_placements' ] );
+	}
+
+	public function register_placements(): void {
 		if ( ! (bool) Settings::get( 'general', 'enabled' ) ) {
 			return;
 		}

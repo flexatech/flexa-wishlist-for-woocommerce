@@ -26,6 +26,13 @@ final class Shortcodes {
 		add_shortcode( 'flexa_wishlist_button', [ $this, 'button' ] );
 		add_shortcode( 'flexa_wishlist_counter', [ $this, 'counter' ] );
 
+		// Defer the Settings read to init: it builds the defaults array (which
+		// calls __()), and doing so before init trips WP 6.7's "translation
+		// loaded too early" notice.
+		add_action( 'init', [ $this, 'maybe_inject_counter' ] );
+	}
+
+	public function maybe_inject_counter(): void {
 		if ( (bool) Settings::get( 'counter', 'auto_inject' ) ) {
 			add_filter( 'wp_nav_menu_items', [ CounterRenderer::class, 'append_to_menu' ], 10, 1 );
 		}
