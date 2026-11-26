@@ -117,7 +117,14 @@ final class Enqueue {
 			wp_enqueue_style( $handle . '-' . $i, $dist_url . $css, [], FLEXA_WISHLIST_VERSION );
 		}
 
-		wp_enqueue_script( $handle, $dist_url . (string) ( $item['file'] ?? '' ), [ 'wp-i18n' ], FLEXA_WISHLIST_VERSION, true );
+		// The bundle takes React from WordPress rather than shipping its own
+		// (apps/admin/wp-react-globals.ts). "react-jsx-runtime" arrived in
+		// WordPress 6.6; before that the bundle builds JSX with createElement.
+		$deps = [ 'react', 'react-dom', 'wp-i18n' ];
+		if ( wp_script_is( 'react-jsx-runtime', 'registered' ) ) {
+			$deps[] = 'react-jsx-runtime';
+		}
+		wp_enqueue_script( $handle, $dist_url . (string) ( $item['file'] ?? '' ), $deps, FLEXA_WISHLIST_VERSION, true );
 		$this->as_module( [ $handle ] );
 	}
 
