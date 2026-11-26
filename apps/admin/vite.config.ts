@@ -2,6 +2,7 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import { resolve } from "node:path";
+import { wpReactGlobals } from "./wp-react-globals";
 
 const root = resolve(__dirname);
 const projectRoot = resolve(__dirname, "../..");
@@ -9,7 +10,7 @@ const projectRoot = resolve(__dirname, "../..");
 export default defineConfig(({ mode }) => ({
     root,
     base: mode === "development" ? "/" : "",
-    plugins: [react(), tailwindcss()],
+    plugins: [wpReactGlobals(), react(), tailwindcss()],
     resolve: {
         alias: {
             "@": resolve(root, "src"),
